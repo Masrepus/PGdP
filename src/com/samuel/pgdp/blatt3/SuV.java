@@ -4,24 +4,23 @@ import com.samuel.pgdp.MiniJava;
 
 public class SuV extends MiniJava{
 
+    private boolean instantLossHandled;
+
     public static void main(String[] args) {
         new SuV();
     }
 
     public SuV() {
+        //check if there has been an instant loss after each player's turn
         int player1 = play(1);
+        if (instantLossHandled) return;
         int player2 = play(2);
+        if (instantLossHandled) return;
 
         //evaluate who has won and write it
-        if (player1 > player2) {
-            if (player1 > 21) write("Player 2 has won! (Player 1 has more than 21 points) " + player2 + ":" + player1 + " points");
-            else write("Player 1 has won! " + player1 + ":" + player2 + " points");
-        }
+        if (player1 > player2) write("Player 1 has won! " + player1 + ":" + player2 + " points");
         if (player1 == player2) write("Player 1 wins! (equal amount of points)" + player1 + ":" + player2 + " points");
-        if (player1 < player2) {
-            if (player2 > 21) write("Player 1 has won! (Player 2 has more than 21 points) " + player1 + ":" + player2 + " points");
-            else write("Player 2 has won! " + player2 + ":" + player1 + " points");
-        }
+        if (player1 < player2) write("Player 2 has won! " + player2 + ":" + player1 + " points");
     }
 
     private int play(int player) {
@@ -36,6 +35,7 @@ public class SuV extends MiniJava{
         while (true) {
             if (cards > 21) {
                 //instant loss
+                instantLossHandled = true;
                 write("Player " + player + "! The value of your cards is: " + cards + "\nYou lost!");
                 break;
             }
