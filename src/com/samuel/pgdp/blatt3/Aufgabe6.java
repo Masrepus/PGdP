@@ -34,8 +34,7 @@ public class Aufgabe6 extends MiniJava{
         //tell player1 his card value and ask, if he would like another one
 
         while (true) {
-            if (cards > 21
-                    ) {
+            if (cards > 21) {
                 //instant loss
                 write("Player " + player + "! The value of your cards is: " + cards + "\nYou lost!");
                 break;
