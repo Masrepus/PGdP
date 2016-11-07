@@ -2,13 +2,13 @@ package com.samuel.pgdp.blatt3;
 
 import com.samuel.pgdp.MiniJava;
 
-public class Aufgabe6 extends MiniJava{
+public class SuV extends MiniJava{
 
     public static void main(String[] args) {
-        new Aufgabe6();
+        new SuV();
     }
 
-    public Aufgabe6() {
+    public SuV() {
         int player1 = play(1);
         int player2 = play(2);
 
