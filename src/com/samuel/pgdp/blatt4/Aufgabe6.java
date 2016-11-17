@@ -2,9 +2,6 @@ package com.samuel.pgdp.blatt4;
 
 import com.samuel.pgdp.MiniJava;
 
-/**
- * Created by Samuel on 15.11.2016.
- */
 public class Aufgabe6 extends MiniJava {
 
     private static String lower = "abcdefghijklmnopqrstuvwxyz";
@@ -34,7 +31,7 @@ public class Aufgabe6 extends MiniJava {
     /**
      * Encrypts a string using the caesar-encryption with a cyclical shift
      * @param message the message to be encrypted
-     * @param shift the cyclical shift that should be applied
+     * @param shift the cyclical shift that should be applied; use -shift to decrypt a message that has been encrypted with shift
      */
     private void encrypt(String message, int shift) {
 
@@ -58,6 +55,12 @@ public class Aufgabe6 extends MiniJava {
         write("The processed message is:\n" + newMessage);
     }
 
+    /**
+     * cyclically shifts a {@code c} by the given {@code shift} if it is included in our alphabet. If not, {@code c} is returned as is
+     * @param c the char to be processed
+     * @param shift the cyclical shift as an Integer
+     * @return the processed char
+     */
     private char process(char c, int shift) {
 
         //find the index of this char and whether it is in lower or upper case
