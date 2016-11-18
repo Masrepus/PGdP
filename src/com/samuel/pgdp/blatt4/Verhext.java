@@ -47,19 +47,19 @@ public class Verhext extends MiniJava {
         if (stringContentEquals(input, "0x") || stringContentEquals(input, "0X") || stringContentEquals(input, "-0x") || stringContentEquals(input, "-0X"))
             throw new Exception("Error: Hexadecimal numbers are required to have at least one hexadecimal digit!");
 
-        String legalChars = "-_xX0123456789aAbBcCdDeEfF";
+        String legalChars = "+-_xX0123456789aAbBcCdDeEfF";
         boolean xUsed = false;
-        boolean minusUsed = false;
+        boolean signUsed = false;
 
         //iterate through the String
         for (int i = 0; i < input.length(); i++) {
             char c = input.charAt(i);
 
-            if (c == '-') {
+            if (c == '-' || c == '+') {
                 //check if already used or at wrong position
-                if (minusUsed) throw new Exception("Error: Multiple '-' chars!");
-                if (i != 0) throw new Exception("Error: '-' char at unexpected position!");
-                else minusUsed = true;
+                if (signUsed) throw new Exception("Error: Multiple sign chars!");
+                if (i != 0) throw new Exception("Error: sign char at unexpected position!");
+                else signUsed = true;
             }
 
             //now check if c is a legal char
@@ -91,8 +91,8 @@ public class Verhext extends MiniJava {
         if (cleanInput.charAt(0) == '-') {
             //we have a minus, so take that into account
             if (cleanInput.length() > "-0x7fffffff".length()) throw new Exception("Error: " + input + " is too small for Integer!");
-            else {
-                //so the String's length is not too long, check if it fits numerically, nearly same thing as below
+            else if (cleanInput.length() == "-0x7fffffff".length()){
+                //so the String's length is at the limit, check if it fits numerically, nearly same thing as below
                 switch (cleanInput.charAt(3)) {
                     case '8':
                     case '9':
@@ -115,7 +115,7 @@ public class Verhext extends MiniJava {
             if (cleanInput.length() > "0x7fffffff".length())
                 throw new Exception("Error: " + input + " is too big for Integer!");
             else if (cleanInput.length() == "0x7fffffff".length()){
-                //so the String's length is not too long, check if it fits numerically, this is not the case if the digit after 0x is bigger than or equal to 8
+                //so the String's length is at the limit, check if it fits numerically, this is not the case if the digit after 0x is bigger than or equal to 8
                 switch (cleanInput.charAt(2)) {
                     case '8':
                     case '9':
