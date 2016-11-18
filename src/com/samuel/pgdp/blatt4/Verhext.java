@@ -18,6 +18,10 @@ public class Verhext extends MiniJava {
         else verhextStandard(input);
     }
 
+    /**
+     * Parses a hexadecimal String to an Integer
+     * @param input a String representation of a valid hexadecimal number that can optionally contain underscores
+     */
     private void verhextStandard(String input) {
         //first check for underscores and eliminate them from the String
         String cleanInput = removeUnderscores(input);
@@ -30,6 +34,10 @@ public class Verhext extends MiniJava {
         write(input + " in Integer is " + output);
     }
 
+    /**
+     * Parses a hexadecimal String to an Integer . Prints the resulting Integer if the String was syntactically correct or gives an error message detailing the cause for the failure to parse.
+     * @param input a String
+     */
     private void verhextBonus(String input) {
         //for bonus version, we first have to check whether the String is legal
         try {
@@ -42,6 +50,11 @@ public class Verhext extends MiniJava {
         }
     }
 
+    /**
+     * Performs a syntax check on the given {@code input}.
+     * @param input a String
+     * @throws Exception if syntax errors are found, an Error message detailing the problem is passed along with the Exception
+     */
     private void checkInput(String input) throws Exception {
         //if we only have 0x or -0x we can abort
         if (stringContentEquals(input, "0x") || stringContentEquals(input, "0X") || stringContentEquals(input, "-0x") || stringContentEquals(input, "-0X"))
@@ -137,6 +150,11 @@ public class Verhext extends MiniJava {
         }
     }
 
+    /**
+     * Removes all underscore chars from a given {@code input}
+     * @param input a String that can contain underscores
+     * @return the {@code input} String cleaned of all underscores
+     */
     private String removeUnderscores(String input) {
         String cleanInput = "";
 
@@ -182,7 +200,12 @@ public class Verhext extends MiniJava {
         return noLeadingZeros;
     }
 
-    // x^y
+    /**
+     * Exponentiation calculation
+     * @param x base
+     * @param y exponent
+     * @return the {@code y}-th power of {@code x}
+     */
     private int pow(int x, int y) {
         return java.math.BigInteger.valueOf(x).pow(y).intValueExact();
     }
@@ -191,6 +214,12 @@ public class Verhext extends MiniJava {
         new Verhext();
     }
 
+    /**
+     * Recursively converts a String representation of a hexadecimal number to an Integer
+     * @param input a String representation of a hexadecimal number
+     * @param i the current position in {@code input}. Is decreased by 1 each step of recursion, so pass {@code input.length()} as starting point
+     * @return the decimal value of the current hexadecimal digit plus the return value of subsequent calls of this method
+     */
     private int convert(String input, int i) {
         //check if we reached the 0x at the beginning of the string and abort if so
         if (input.charAt(i) == 'x') return 0;
@@ -205,6 +234,11 @@ public class Verhext extends MiniJava {
         return digit + convert(input, i - 1);
     }
 
+    /**
+     * Get the decimal value of one hexadecimal digit
+     * @param c a hexadecimal digit
+     * @return {@code c}'s decimal value
+     */
     private int getHexValue(char c) {
         //if it's a digit from 0-9, just pass it through
         String digits = "0123456789";
