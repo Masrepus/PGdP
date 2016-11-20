@@ -75,6 +75,17 @@ public class Verhext extends MiniJava {
                 else signUsed = true;
             }
 
+            //check if underscores are at legal positions
+            if (c == '_') {
+                //can not be at first position after 0x or at the end of the String
+                if (i == input.length() - 1) throw new Exception("Error: '_' char at unexpected position!");
+                if (input.charAt(0) == '-') {
+                    if (i == 3) throw new Exception("Error: '_' char at unexpected position!");
+                } else {
+                    if (i == 2) throw new Exception("Error: '_' char at unexpected position!");
+                }
+            }
+
             //now check if c is a legal char
             boolean charLegal = false;
             for (int j = 0; j < legalChars.length(); j++) {
