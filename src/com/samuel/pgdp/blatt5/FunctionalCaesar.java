@@ -18,7 +18,9 @@ public class FunctionalCaesar extends MiniJava {
         for (int i = 0; i < lower.length(); i++) {
             if (lower.charAt(i) == c) {
                 //caesar encryption formula as said by Wikipedia
-                int newId = Math.abs(i + k) % 26;
+                int newId;
+                if (k >=0) newId = (i + k) % 26;
+                else newId = (i + 26 + k) % 26;
                 return (lower.charAt(newId));
             }
         }
@@ -27,7 +29,9 @@ public class FunctionalCaesar extends MiniJava {
         for (int i = 0; i < upper.length(); i++) {
             if (upper.charAt(i) == c) {
                 //caesar encryption formula as said by Wikipedia
-                int newId = Math.abs(i + k) % 26;
+                int newId;
+                if (k >=0) newId = (i + k) % 26;
+                else newId = (i + 26 + k) % 26;
                 return (upper.charAt(newId));
             }
         }

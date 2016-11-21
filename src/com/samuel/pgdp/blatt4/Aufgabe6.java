@@ -67,7 +67,9 @@ public class Aufgabe6 extends MiniJava {
         for (int i = 0; i < lower.length(); i++) {
             if (lower.charAt(i) == c) {
                 //caesar encryption formula as said by Wikipedia
-                int newId = Math.abs(i + shift) % 26;
+                int newId;
+                if (shift >=0) newId = (i + shift) % 26;
+                else newId = (i + 26 + shift) % 26;
                 return (lower.charAt(newId));
             }
         }
@@ -76,7 +78,9 @@ public class Aufgabe6 extends MiniJava {
         for (int i = 0; i < upper.length(); i++) {
             if (upper.charAt(i) == c) {
                 //caesar encryption formula as said by Wikipedia
-                int newId = Math.abs(i + shift) % 26;
+                int newId;
+                if (shift >=0) newId = (i + shift) % 26;
+                else newId = (i + 26 + shift) % 26;
                 return (upper.charAt(newId));
             }
         }
