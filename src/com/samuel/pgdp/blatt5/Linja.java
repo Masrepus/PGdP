@@ -243,9 +243,9 @@ public class Linja extends MiniJava {
         //get the winner
         if (points1 == pointsMinus1) write("The game has ended. Tie! " + pointsMinus1 + " (player -1) : " + points1 + " (player 1)");
         else {
-            String winner = (points1 > pointsMinus1) ? "Player 1 has won! " : "Player 2 has won! ";
+            String winner = (points1 > pointsMinus1) ? "Player 1 has won! " : "Player -1 has won! ";
             //output the points
-            write("The game has ended. " + winner + pointsMinus1 + " (player -1) : " + points1 + " (player 1");
+            write("The game has ended. " + winner + "\n" + pointsMinus1 + " (player -1) : " + points1 + " (player 1)");
         }
     }
 
