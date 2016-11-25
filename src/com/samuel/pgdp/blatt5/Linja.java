@@ -48,8 +48,10 @@ public class Linja extends MiniJava {
     }
 
     /**
-     * @return true, wenn die Eingabe stein im richtigen Wertebereich liegt und
-     * zum Spieler gehoert; false, sonst
+     * Checks whether the piece that was chosen has a value that is legal for this player
+     * @param stein the piece to check the legality for
+     * @param spieler player id, either 1 or -1
+     * @return true, if the choice was legal, false if not
      */
     private static boolean gueltigeEingabe(int stein, int spieler) {
         //check if stein is negative or positive and if this matches spieler
@@ -97,6 +99,8 @@ public class Linja extends MiniJava {
      * Ueberprueft, ob der Zug zulaessig ist und fuehrt diesen aus, wenn er
      * zulaessig ist.
      *
+     * @param stein the piece to move
+     * @param weite the distance to move {@code stein}
      * @param vorwaerts == true: Zug erfolgt vorwaerts aus Sicht des
      *                  Spielers/Steins vorwearts == false: Zug erfolgt rueckwaerts aus Sicht des
      *                  Spielers/Steins
@@ -299,6 +303,10 @@ public class Linja extends MiniJava {
         }
     }
 
+    /**
+     * Performs the bonus round. Player can choose whether to move any piece forward or backward by one row (except pieces that have passed the finish line)
+     * @param player the player performing the bonus round
+     */
     private static void handleBonus(int player) {
 
         int code;
