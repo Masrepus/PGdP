@@ -82,6 +82,9 @@ public class FunctionalCaesar extends MiniJava {
         int k = read();
         String out = encrypt(input, k);
         write(out);
+
+        write("Mrn pnvnrwbcnw Jdopjknw bcnuuc Ajyqjnuj in clear text is:\n" +
+                decrypt("Mrn pnvnrwbcnw Jdopjknw bcnuuc Ajyqjnuj", 9) + " (shift: 9)");
     }
 
 }
