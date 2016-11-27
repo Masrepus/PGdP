@@ -6,9 +6,10 @@ import java.awt.*;
 /**
  * Created by Samuel on 25.11.2016.
  */
-public class MJTwoScreen {
+public class MJAutoscreen {
     public static String readString(String text) {
-        JFrame frame = new JFrame();
+        java.awt.GraphicsDevice[] devices = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices();
+        JFrame frame = new JFrame(devices[devices.length-1].getDefaultConfiguration());
         String s = JOptionPane.showInputDialog(frame, text);
         frame.dispose();
 
@@ -23,7 +24,7 @@ public class MJTwoScreen {
 
     public static int readInt(String text) {
         java.awt.GraphicsDevice[] devices = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices();
-        JFrame frame = new JFrame(devices[1].getDefaultConfiguration());
+        JFrame frame = new JFrame(devices[devices.length-1].getDefaultConfiguration());
         String s = JOptionPane.showInputDialog(frame, text);
         frame.dispose();
 
@@ -51,7 +52,8 @@ public class MJTwoScreen {
     }
 
     public static double readDouble(String text) {
-        JFrame frame = new JFrame();
+        java.awt.GraphicsDevice[] devices = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices();
+        JFrame frame = new JFrame(devices[devices.length-1].getDefaultConfiguration());
         String s = JOptionPane.showInputDialog(frame, text);
         frame.dispose();
 
@@ -72,7 +74,7 @@ public class MJTwoScreen {
 
     public static void write(String output) {
         java.awt.GraphicsDevice[] devices = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices();
-        JFrame frame = new JFrame(devices[1].getDefaultConfiguration());
+        JFrame frame = new JFrame(devices[devices.length-1].getDefaultConfiguration());
         JOptionPane.showMessageDialog(frame, output, "Ausgabe", JOptionPane.PLAIN_MESSAGE);
         frame.dispose();
     }
