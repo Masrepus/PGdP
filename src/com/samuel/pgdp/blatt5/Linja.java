@@ -70,9 +70,9 @@ public class Linja extends MiniJava {
      */
     private static int[] findeStein(int stein) {
         //look for the player's position in the matrix
-        for (int i = 0; i < spielfeld.length; i++) {
-            for (int j = 0; j < spielfeld[i].length; j++) {
-                if (spielfeld[i][j] == stein) return new int[]{i, j};
+        for (int y = 0; y < spielfeld.length; y++) {
+            for (int x = 0; x < spielfeld[y].length; x++) {
+                if (spielfeld[y][x] == stein) return new int[]{x, y};
             }
         }
 
@@ -120,22 +120,22 @@ public class Linja extends MiniJava {
         //calculate the destination row
         int destRow;
         if (vorwaerts) {
-            if (stein < 0) destRow = currPosition[0] - weite;
-            else destRow = currPosition[0] + weite;
+            if (stein < 0) destRow = currPosition[1] - weite;
+            else destRow = currPosition[1] + weite;
         } else {
-            if (stein < 0) destRow = currPosition[0] + weite;
-            else destRow = currPosition[0] - weite;
+            if (stein < 0) destRow = currPosition[1] + weite;
+            else destRow = currPosition[1] - weite;
         }
 
         //you can't move a piece if it has already crossed the finish line
-        if (currPosition[0] == finishLine) return -1;
+        if (currPosition[1] == finishLine) return -1;
         //you can't move a piece backward if it is still in the starting row
-        else if (!vorwaerts && currPosition[0] == start) return -1;
+        else if (!vorwaerts && currPosition[1] == start) return -1;
 
         //check if destRow is still between 0 and 7 or exactly 7 (potential bonus round)
         if (stein > 0 && destRow > 7 || stein < 0 && destRow < 0) {
             //remove the piece from the game
-            spielfeld[currPosition[0]][currPosition[1]] = 0;
+            spielfeld[currPosition[1]][currPosition[0]] = 0;
 
             //increase the number of pieces that are not displayed
             if (stein < 0) notDisplayed[0]++;
@@ -148,7 +148,7 @@ public class Linja extends MiniJava {
         }
         else if (destRow == finishLine) {
             //remove the piece from the game
-            spielfeld[currPosition[0]][currPosition[1]] = 0;
+            spielfeld[currPosition[1]][currPosition[0]] = 0;
 
             //increase the number of pieces that are not displayed
             if (stein < 0) notDisplayed[0]++;
@@ -172,7 +172,7 @@ public class Linja extends MiniJava {
                     }
                 }
                 //remove the piece from its original position
-                spielfeld[currPosition[0]][currPosition[1]] = 0;
+                spielfeld[currPosition[1]][currPosition[0]] = 0;
                 return piecesInRow;
             }
         }
