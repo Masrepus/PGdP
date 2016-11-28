@@ -5,7 +5,11 @@ import com.samuel.pgdp.MJAutoscreen;
 public class Toolbox extends MJAutoscreen {
 
     public static void main(String[] args) {
-        System.out.println(multiplication(5, -0));
+        int[] test = new int[]{1,2,3,4,5,6,7,8,9};
+        reverse(test);
+        for (int i : test) {
+            System.out.println(i);
+        }
     }
 
     public static int evenSum(int n) {
@@ -42,7 +46,22 @@ public class Toolbox extends MJAutoscreen {
     }
 
     public static void reverse(int[] m) {
+        reverse(m, 0);
+    }
 
+    /**
+     * recursively reverses an array
+     * @param m the array to be reversed
+     * @param i the current position in the array, is being incremented
+     */
+    public static void reverse(int[] m, int i) {
+        //swap array entries symmetrically until we reach the center
+        if (i <= m.length/2) {
+            int backup = m[i];
+            m[i] = m[m.length-1-i];
+            m[m.length-1-i] = backup;
+            reverse(m, i + 1);
+        }
     }
 
     public static int numberOfOddIntegers(int[] m) {
