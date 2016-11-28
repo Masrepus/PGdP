@@ -5,7 +5,7 @@ import com.samuel.pgdp.MJAutoscreen;
 public class Toolbox extends MJAutoscreen {
 
     public static void main(String[] args) {
-        System.out.println(evenSum(-8));
+        System.out.println(multiplication(5, -0));
     }
 
     public static int evenSum(int n) {
@@ -23,7 +23,22 @@ public class Toolbox extends MJAutoscreen {
     }
 
     public static int multiplication(int x, int y) {
-        return 0;
+        //performMultiplication expects y to be >= 0 because it is being decremented, so we have to make sure that we find a way to make it positive
+        if (y < 0) {
+            if (x < 0) return performMultiplication(-x, -y); //-*- == +
+            else return performMultiplication(y, x); //x >= 0 so we just swap x and y and we get a non-negative number for performMultiplication's y
+        } else return performMultiplication(x, y);
+    }
+
+    /**
+     * recursively multiplies two integers
+     * @param x any int
+     * @param y any NON-NEGATIVE int
+     * @return x*y
+     */
+    public static int performMultiplication(int x, int y) {
+        if (y == 0) return 0;
+        else return x + multiplication(x, y - 1);
     }
 
     public static void reverse(int[] m) {
