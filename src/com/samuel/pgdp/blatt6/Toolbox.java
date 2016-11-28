@@ -5,11 +5,8 @@ import com.samuel.pgdp.MJAutoscreen;
 public class Toolbox extends MJAutoscreen {
 
     public static void main(String[] args) {
-        int[] test = new int[]{1,2,3,4,5,6,7,8,9};
-        reverse(test);
-        for (int i : test) {
-            System.out.println(i);
-        }
+        int[] test = new int[]{8,8,8,1,8,8,8,1,8,8,8,1};
+        System.out.println(numberOfOddIntegers(test));
     }
 
     public static int evenSum(int n) {
@@ -65,7 +62,41 @@ public class Toolbox extends MJAutoscreen {
     }
 
     public static int numberOfOddIntegers(int[] m) {
-        return 0;
+        return numberOfOddIntegers(m, 0);
+    }
+
+    /**
+     * counts the number of odd integers in an array
+     * @param m the array where we should count
+     * @param i the current position in {@code m}
+     * @return the number of odd integers in {@code m}
+     */
+    public static int numberOfOddIntegers(int[] m, int i) {
+        if (i > m.length-1) return 0;
+        else {
+            if (isOdd(m[i])) return 1 + numberOfOddIntegers(m, i+1);
+            else return numberOfOddIntegers(m, i+1);
+        }
+    }
+
+    /**
+     * flip-flops between isEven and isOdd to determine if an int is even
+     * @param i an int
+     * @return true if {@code i} is even
+     */
+    public static boolean isEven(int i) {
+        if (i == 0) return true;
+        else return isOdd((i < 0) ? i+1 : i-1); //we want to get closer to 0, so count up if <0 and down if >0
+    }
+
+    /**
+     * filp-flops between isOdd and isEven to determine if an int is odd
+     * @param i an int
+     * @return true if {@code i} is odd
+     */
+    public static boolean isOdd(int i) {
+        if (i == 0) return false;
+        else return isEven((i < 0) ? i+1 : i-1); //we want to get closer to 0, so count up if <0 and down if >0
     }
 
     public static int[] filterOdd(int[] m) {
