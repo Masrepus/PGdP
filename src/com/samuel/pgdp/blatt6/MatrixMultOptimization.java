@@ -1,11 +1,10 @@
 package com.samuel.pgdp.blatt6;
 
-import com.samuel.pgdp.MJAutoscreen;
+import com.samuel.pgdp.MiniJava;
 
-public class MatrixMultOptimization extends MJAutoscreen{
+public class MatrixMultOptimization extends MiniJava {
 
     public static void main(String[] args) {
-        System.out.println(f(new int[][]{{10, 30}, {30, 5}, {5, 60}}));
     }
 
     public static int f(int[][] mm) {
@@ -22,10 +21,11 @@ public class MatrixMultOptimization extends MJAutoscreen{
 
     /**
      * Recursively calculates the minimum amount of multiplication operations that are needed for a matrix multiplication of multiple matrices
-     * @param mm an array containing abstract array representations of the matrices to multiply: if a matrix is of the size n*m, add an array of {n,m} to {@code mm}
-     * @param i to determine the current position in {@code mm}
-     * @param x being incremented from i to j-1
-     * @param j to determine the current position in {@code mm}
+     *
+     * @param mm      an array containing abstract array representations of the matrices to multiply: if a matrix is of the size n*m, add an array of {n,m} to {@code mm}
+     * @param i       to determine the current position in {@code mm}
+     * @param x       being incremented from i to j-1
+     * @param j       to determine the current position in {@code mm}
      * @param currMin the currently lowest amount of multiplication operations for this matrix multiplication problem. Pass 0 at start
      * @return the lowest number of multiplications for this problem
      */
@@ -33,15 +33,16 @@ public class MatrixMultOptimization extends MJAutoscreen{
         if (x >= j) return currMin;
         else {
             //calculate the current formula value for x
-            int curr = f(mm, i, x) + f(mm, x+1, j) + (d1(mm[i]) * d2(mm[x]) * d2(mm[j]));
+            int curr = f(mm, i, x) + f(mm, x + 1, j) + (d1(mm[i]) * d2(mm[x]) * d2(mm[j]));
             //check if this value is smaller than any value before or if this is the first value ever, then update the currMin value
-            if (curr < currMin || currMin == 0) return min(mm, i, x+1, j, curr);
-            else return min(mm, i, x+1, j, currMin);
+            if (curr < currMin || currMin == 0) return min(mm, i, x + 1, j, curr);
+            else return min(mm, i, x + 1, j, currMin);
         }
     }
 
     /**
      * Trivial helper method for maintaining the given formula structure
+     *
      * @param m an array containing the parameters n and m of a matrix (size)
      * @return {@code m[0]}
      */
@@ -51,6 +52,7 @@ public class MatrixMultOptimization extends MJAutoscreen{
 
     /**
      * Trivial helper method for maintaining the given formula structure
+     *
      * @param m an array containing the parameters n and m of a matrix (size)
      * @return {@code m[1]}
      */
