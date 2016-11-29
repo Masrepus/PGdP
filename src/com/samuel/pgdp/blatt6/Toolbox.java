@@ -5,8 +5,12 @@ import com.samuel.pgdp.MJAutoscreen;
 public class Toolbox extends MJAutoscreen {
 
     public static void main(String[] args) {
-        int[] test = new int[]{8,8,8,1,8,8,8,1,8,8,8,1};
-        System.out.println(numberOfOddIntegers(test));
+        int[] test = new int[]{};
+        int[] temp = filterOdd(test);
+        for (int i :
+                temp) {
+            System.out.println(i);
+        }
     }
 
     public static int evenSum(int n) {
@@ -100,6 +104,41 @@ public class Toolbox extends MJAutoscreen {
     }
 
     public static int[] filterOdd(int[] m) {
-        return null;
+        return filterOdd(m, new int[0], 0);
+    }
+
+    /**
+     * finds all odd numbers in an integer array and puts them in a new array
+     * @param m the array that should be scanned for odd numbers
+     * @param newM a temporary array that serves as "working space"
+     * @param i the current position in {@code m}
+     * @return a new array containing all odd numbers from {@code m} sorted by position in {@code m}
+     */
+    private static int[] filterOdd(int[] m, int[] newM, int i) {
+        if (i > m.length-1) return newM;
+        else {
+            if (isOdd(m[i])) {
+                //create a new temp array that is one bigger than newM
+                int[] temp = new int[newM.length+1];
+                //copy all items of newM into temp
+                addAll(temp, newM, 0);
+                //add this new odd number to the array and continue with the next position in m
+                temp[newM.length] = m[i];
+                return filterOdd(m, temp, i+1);
+            } else return filterOdd(m, newM, i+1);
+        }
+    }
+
+    /**
+     * Recursively copies the content of one array into another one of at least the same size
+     * @param dest an integer array that should receive the copied data
+     * @param source the source array. All data it contains is being copied to {@code dest}
+     * @param i the current index position. Start with 0
+     */
+    private static void addAll(int[] dest, int[] source, int i) {
+        if (i <= dest.length-1 && i <= source.length-1) {
+            dest[i] = source[i];
+            addAll(dest, source, i+1);
+        }
     }
 }
