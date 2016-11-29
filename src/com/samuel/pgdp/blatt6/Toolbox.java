@@ -24,22 +24,38 @@ public class Toolbox extends MiniJava {
     public static int multiplication(int x, int y) {
         //performMultiplication expects y to be >= 0 because it is being decremented, so we have to make sure that we find a way to make it positive
         if (y < 0) {
-            if (x < 0) return performMultiplication(-x, -y); //-*- == +
+            if (x < 0) return optimizeMultiplication(-x, -y); //-*- == +
             else
-                return performMultiplication(y, x); //x >= 0 so we just swap x and y and we get a non-negative number for performMultiplication's y
-        } else return performMultiplication(x, y);
+                return optimizeMultiplication(y, x); //x >= 0 so we just swap x and y and we get a non-negative number for performMultiplication's y
+        } else return optimizeMultiplication(x, y);
     }
 
     /**
-     * recursively multiplies two integers
+     * Prepares x and y for {@code performMultiplication}, as this method has to use an even number as y
+     *
+     * @param x an integer
+     * @param y an integer
+     * @return x*y (limit: x*26479)
+     */
+    private static int optimizeMultiplication(int x, int y) {
+        //check if y is even, if not, make it even by substracting 1 from y and adding the missing x manually
+        if (isEven(y)) return performMultiplication(x, y);
+        else {
+            if (y != 0) return x + performMultiplication(x, y - 1);
+            else return 0;
+        }
+    }
+
+    /**
+     * recursively multiplies two integers, the second one has to be even because we always do two additions at once to avoid StackOverflow
      *
      * @param x any int
-     * @param y any NON-NEGATIVE int
+     * @param y any NON-NEGATIVE int, has to be even so that we can optimize the method to not cause StackOverflow so fast
      * @return x*y
      */
     public static int performMultiplication(int x, int y) {
         if (y == 0) return 0;
-        else return x + multiplication(x, y - 1);
+        else return x + x + performMultiplication(x, y - 2);
     }
 
     public static void reverse(int[] m) {
@@ -76,31 +92,21 @@ public class Toolbox extends MiniJava {
     public static int numberOfOddIntegers(int[] m, int i) {
         if (i > m.length - 1) return 0;
         else {
-            if (isOdd(m[i])) return 1 + numberOfOddIntegers(m, i + 1);
+            if (!isEven(m[i])) return 1 + numberOfOddIntegers(m, i + 1);
             else return numberOfOddIntegers(m, i + 1);
         }
     }
 
     /**
-     * flip-flops between isEven and isOdd to determine if an int is even
+     * An optimized method to recursively determine whether a number is even that doesn't have uselessly much Stack overhead
      *
-     * @param i an int
-     * @return true if {@code i} is even
+     * @param i the int to test
+     * @return true if {@code i} is even, false if not
      */
     public static boolean isEven(int i) {
         if (i == 0) return true;
-        else return isOdd((i < 0) ? i + 1 : i - 1); //we want to get closer to 0, so count up if <0 and down if >0
-    }
-
-    /**
-     * filp-flops between isOdd and isEven to determine if an int is odd
-     *
-     * @param i an int
-     * @return true if {@code i} is odd
-     */
-    public static boolean isOdd(int i) {
-        if (i == 0) return false;
-        else return isEven((i < 0) ? i + 1 : i - 1); //we want to get closer to 0, so count up if <0 and down if >0
+        else if (i == -1 || i == 1) return false;
+        else return isEven((i < 0) ? i + 2 : i - 2);
     }
 
     public static int[] filterOdd(int[] m) {
@@ -118,7 +124,7 @@ public class Toolbox extends MiniJava {
     private static int[] filterOdd(int[] m, int[] newM, int i) {
         if (i > m.length - 1) return newM;
         else {
-            if (isOdd(m[i])) {
+            if (!isEven(m[i])) {
                 //create a new temp array that is one bigger than newM
                 int[] temp = new int[newM.length + 1];
                 //copy all items of newM into temp
