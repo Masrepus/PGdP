@@ -1,10 +1,8 @@
 package com.samuel.pgdp.blatt7;
 
-import com.samuel.pgdp.MJAutoscreen;
 import com.samuel.pgdp.MiniJava;
-import com.samuel.pgdp.MiniJavaNonStatic;
 
-public class DameSpiel extends MiniJavaNonStatic {
+public class DameSpiel extends MiniJava {
 
     public int nrRows, nrColumns; // Board dimensions
     public boolean[][] board, possibleMoves;     // true = queen, false = empty
