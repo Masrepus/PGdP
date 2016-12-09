@@ -1,11 +1,12 @@
 package com.samuel.pgdp;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
-public class MiniJava {
-
-    public static String readString(String text) {
+/**
+ * Created by samuel on 09.12.16.
+ */
+public class MiniJavaNonStatic {
+    public String readString(String text) {
         JFrame frame = new JFrame();
         String s = JOptionPane.showInputDialog(frame, text);
         frame.dispose();
@@ -15,11 +16,11 @@ public class MiniJava {
         return s;
     }
 
-    public static String readString() {
+    public String readString() {
         return readString("Eingabe:");
     }
 
-    public static int readInt(String text) {
+    public int readInt(String text) {
         JFrame frame = new JFrame();
         String s = JOptionPane.showInputDialog(frame, text);
         frame.dispose();
@@ -35,19 +36,19 @@ public class MiniJava {
         return x;
     }
 
-    public static int readInt() {
+    public int readInt() {
         return readInt("Geben Sie eine ganze Zahl ein:");
     }
 
-    public static int read(String text) {
+    public int read(String text) {
         return readInt(text);
     }
 
-    public static int read() {
+    public int read() {
         return readInt();
     }
 
-    public static double readDouble(String text) {
+    public double readDouble(String text) {
         JFrame frame = new JFrame();
         String s = JOptionPane.showInputDialog(frame, text);
         frame.dispose();
@@ -63,33 +64,33 @@ public class MiniJava {
         return x;
     }
 
-    public static double readDouble() {
+    public double readDouble() {
         return readDouble("Geben Sie eine Zahl ein:");
     }
 
-    public static void write(String output) {
+    public void write(String output) {
         JFrame frame = new JFrame();
         JOptionPane.showMessageDialog(frame, output, "Ausgabe", JOptionPane.PLAIN_MESSAGE);
         frame.dispose();
     }
 
-    public static void write(int output) {
+    public void write(int output) {
         write("" + output);
     }
 
-    public static void write(double output) {
+    public void write(double output) {
         write("" + output);
     }
 
-    public static int randomInt(int minval, int maxval) {
+    public int randomInt(int minval, int maxval) {
         return minval + (new java.util.Random()).nextInt(maxval - minval + 1);
     }
 
-    public static int drawCard() {
+    public int drawCard() {
         return randomInt(2, 11);
     }
 
-    public static int dice() {
+    public int dice() {
         return randomInt(1, 6);
     }
 }
