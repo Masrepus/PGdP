@@ -1,6 +1,5 @@
-package blatt06;
+package com.samuel.pgdp.blatt6;
 
-import com.samuel.pgdp.blatt6.Toolbox;
 import org.junit.Assert;
 import org.junit.Test;
 

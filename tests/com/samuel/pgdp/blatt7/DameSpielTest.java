@@ -1,6 +1,5 @@
-package blatt07;
+package com.samuel.pgdp.blatt7;
 
-import com.samuel.pgdp.blatt7.DameSpiel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
