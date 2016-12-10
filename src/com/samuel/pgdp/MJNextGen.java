@@ -6,8 +6,8 @@ import java.awt.*;
 /**
  * Created by Samuel on 25.11.2016.
  */
-public class MJAutoscreen {
-    public static String readString(String text) {
+public class MJNextGen {
+    public String readString(String text) {
         java.awt.GraphicsDevice[] devices = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices();
         JFrame frame = new JFrame(devices[devices.length-1].getDefaultConfiguration());
         String s = JOptionPane.showInputDialog(frame, text);
@@ -18,11 +18,11 @@ public class MJAutoscreen {
         return s;
     }
 
-    public static String readString() {
+    public String readString() {
         return readString("Eingabe:");
     }
 
-    public static int readInt(String text) {
+    public int readInt(String text) {
         java.awt.GraphicsDevice[] devices = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices();
         JFrame frame = new JFrame(devices[devices.length-1].getDefaultConfiguration());
         String s = JOptionPane.showInputDialog(frame, text);
@@ -39,19 +39,19 @@ public class MJAutoscreen {
         return x;
     }
 
-    public static int readInt() {
+    public int readInt() {
         return readInt("Geben Sie eine ganze Zahl ein:");
     }
 
-    public static int read(String text) {
+    public int read(String text) {
         return readInt(text);
     }
 
-    public static int read() {
+    public int read() {
         return readInt();
     }
 
-    public static double readDouble(String text) {
+    public double readDouble(String text) {
         java.awt.GraphicsDevice[] devices = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices();
         JFrame frame = new JFrame(devices[devices.length-1].getDefaultConfiguration());
         String s = JOptionPane.showInputDialog(frame, text);
@@ -68,33 +68,34 @@ public class MJAutoscreen {
         return x;
     }
 
-    public static double readDouble() {
+    public double readDouble() {
         return readDouble("Geben Sie eine Zahl ein:");
     }
 
-    public static void write(String output) {
+    public void write(String output) {
         java.awt.GraphicsDevice[] devices = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices();
         JFrame frame = new JFrame(devices[devices.length-1].getDefaultConfiguration());
         JOptionPane.showMessageDialog(frame, output, "Ausgabe", JOptionPane.PLAIN_MESSAGE);
         frame.dispose();
     }
 
-    public static void write(int output) {
+    public void write(int output) {
         write("" + output);
     }
 
-    public static void write(double output) {
+    public void write(double output) {
         write("" + output);
     }
 
-    public static int drawCard(int minval, int maxval){
-        return minval + (new java.util.Random()).nextInt(maxval-minval+1);
-    }
-    public static int drawCard(){
-        return drawCard(2,11);
+    public int randomInt(int minval, int maxval) {
+        return minval + (new java.util.Random()).nextInt(maxval - minval + 1);
     }
 
-    public static int dice(){
-        return drawCard(1,6);
+    public int drawCard() {
+        return randomInt(2, 11);
+    }
+
+    public int dice() {
+        return randomInt(1, 6);
     }
 }
