@@ -1,9 +1,8 @@
 package com.samuel.pgdp.blatt7;
 
-import com.samuel.pgdp.MJNextGen;
 import com.samuel.pgdp.MiniJava;
 
-public class DameSpiel extends MJNextGen { // STOPSHIP: 10.12.2016 MJNextGen for internal use only!
+public class DameSpiel extends MiniJava {
 
     public int nrRows, nrColumns; // Board dimensions
     public boolean[][] board, possibleMoves;     // true = queen, false = empty
