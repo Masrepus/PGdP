@@ -47,6 +47,7 @@ public class DameSpiel extends MJNextGen { // STOPSHIP: 10.12.2016 MJNextGen for
     /**
      * Initialisiert das Spielbrett ueberall mit false.
      * Dazu wird (ggf. neuer) Speicher allokiert.
+     * Zusätzlich wird der Scanvorgang eingeleitet, der nach möglichen Zügen sucht
      */
     public void initBoard() {
         board = new boolean[nrColumns][nrRows];
@@ -158,6 +159,10 @@ public class DameSpiel extends MJNextGen { // STOPSHIP: 10.12.2016 MJNextGen for
         }
     }
 
+    /**
+     * Checks the whole board for possible moves
+     * @return true if a queen can be placed on at least one more field on the board
+     */
     public boolean arePossibleMoves() {
         //iterate through possibleMoves, if there is no true, there are no possible moves
         for (int i = 0; i < possibleMoves.length; i++) {
@@ -170,6 +175,11 @@ public class DameSpiel extends MJNextGen { // STOPSHIP: 10.12.2016 MJNextGen for
         return false;
     }
 
+    /**
+     * Checks whether this specific move is possible
+     * @param input the move to be evaluated. Syntax: XY, X = column number Y = row number
+     * @return true if this move is possible, false if the queen would be beaten by another one if placed here
+     */
     public boolean movePossible(int input) {
         int columnId = input / 10 - 1;
         int rowId = input % 10 - 1;
@@ -237,6 +247,9 @@ public class DameSpiel extends MJNextGen { // STOPSHIP: 10.12.2016 MJNextGen for
         return true;
     }
 
+    /**
+     * Saves all possible moves in {@code possibleMoves}
+     */
     public void scanPossibleMoves() {
         //check for each position in board whether the player should be allowed to put a queen here
         for (int c = 1; c <= nrColumns; c++) {
@@ -246,6 +259,9 @@ public class DameSpiel extends MJNextGen { // STOPSHIP: 10.12.2016 MJNextGen for
         }
     }
 
+    /**
+     * An optional helper method that prints the possibleMoves version of the board. Each field where a queen can be placed is marked by a checkmark, all other fields by an x
+     */
     public void printCurrPossibleMoves() {
         //print possibleMoves matrix
         for (int j = possibleMoves[0].length - 1; j >= 0; j--) {
