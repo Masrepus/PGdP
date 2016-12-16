@@ -8,7 +8,7 @@ public class SymmetricStack {
 
     public SymmetricStack() {
         //init data
-        data = new int[4];
+        data = new int[2];
         first = last = -1;
     }
 
@@ -255,5 +255,8 @@ public class SymmetricStack {
                 out += (first == last ? "" : " " + data[i]) + ")";
         }
         return out;
+    }
+
+    public static void main(String[] args) {
     }
 }
