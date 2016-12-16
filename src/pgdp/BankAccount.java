@@ -17,7 +17,7 @@ public class BankAccount {
         balance = new Money(0);
     }
 
-    public int getAccountnumber() {
+    public int getAccountNr() {
         return bankaccount;
     }
 

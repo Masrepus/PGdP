@@ -27,7 +27,7 @@ public class BankAccountTest {
 
     private void assertAccount(int cent, int number, String fname, String sname) {
         Money balance = test.getBalance();
-        Assert.assertEquals(messageFunction("getAccountnumber()"), number, test.getAccountnumber());
+        Assert.assertEquals(messageFunction("getAccountNr()"), number, test.getAccountNr());
         Assert.assertEquals(messageFunction("getFirstname()"), fname, test.getFirstname());
         Assert.assertEquals(messageFunction("getSurname()"), sname, test.getSurname());
         Assert.assertNotNull("getBalance() shall not return null!", balance);
