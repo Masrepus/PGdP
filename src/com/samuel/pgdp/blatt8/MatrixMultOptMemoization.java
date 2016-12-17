@@ -2,7 +2,6 @@ package com.samuel.pgdp.blatt8;
 
 import com.samuel.pgdp.MiniJava;
 
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class MatrixMultOptMemoization extends MiniJava {
@@ -95,40 +94,5 @@ public class MatrixMultOptMemoization extends MiniJava {
      */
     public int d2(int[] m) {
         return m[1];
-    }
-
-    private class Input {
-        private int[][] mm;
-        private int i, j;
-
-        public Input(int[][] mm, int i, int j) {
-            this.mm = mm;
-            this.i = i;
-            this.j = j;
-        }
-
-        @Override
-        public int hashCode() {
-            String hash = "";
-
-            //get the hash for the matrix
-            hash += Arrays.deepHashCode(mm);
-
-            //now add i and j and we're done
-            hash += i;
-            hash += j;
-
-            return Integer.parseInt(hash);
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            return ((Input) obj).hashCode() == hashCode();
-        }
-
-        @Override
-        public String toString() {
-            return Arrays.deepToString(mm) + " " + i + " " + j;
-        }
     }
 }
