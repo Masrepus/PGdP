@@ -4,7 +4,11 @@ import com.samuel.pgdp.MiniJava;
 
 public class MatrixMultOptimization extends MiniJava {
 
+    public static int counter = 0;
+
     public static void main(String[] args) {
+        System.out.println(f(new int[][]{{10, 30}, {30, 5}, {5, 60}, {30, 5}, {10, 4}}));
+        System.out.println(counter);
     }
 
     public static int f(int[][] mm) {
@@ -12,6 +16,7 @@ public class MatrixMultOptimization extends MiniJava {
     }
 
     public static int f(int[][] mm, int i, int j) {
+        counter++;
         //stop if i == j
         if (i >= j) return 0;
         else {
