@@ -7,7 +7,7 @@ import java.util.LinkedList;
  */
 public class FruitBasket {
 
-    private LinkedList<Fruit> fruits = new LinkedList<Fruit>();
+    public LinkedList<Fruit> fruits = new LinkedList<Fruit>();
 
     public void addFruit(Fruit f) {
         fruits.add(f);
