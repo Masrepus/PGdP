@@ -5,7 +5,6 @@ public class Snake extends Predator {
     // Eine Schlange kann 9 Tage bzw. Spielrunden ohne Essen auskommen.
     // Die Deklaration darf entfernt (und der Wert z. B. direkt im Code
     // verwendet) werden.
-    private static int withoutFood = 9;
 
 
     /**
@@ -14,6 +13,7 @@ public class Snake extends Predator {
      */
     public Snake(boolean female) {
         super(female);
+        daysRemaining = 9;
     }
 
 

@@ -13,4 +13,8 @@ public class Vegetarian extends Animal {
         super(female);
     }
 
+    @Override
+    public void sunset() {
+        //do nothing
+    }
 }

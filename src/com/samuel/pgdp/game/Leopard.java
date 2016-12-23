@@ -5,7 +5,6 @@ public class Leopard extends Predator {
     // Ein Leopard kann nur 5 Tage bzw. Spielrunden ohne Essen auskommen.
     // Die Deklaration darf entfernt (und der Wert z. B. direkt im Code
     // verwendet) werden.
-    private static int withoutFood = 5;
 
 
     /**
@@ -14,6 +13,7 @@ public class Leopard extends Predator {
      */
     public Leopard(boolean female) {
         super(female);
+        daysRemaining = 5;
     }
 
 

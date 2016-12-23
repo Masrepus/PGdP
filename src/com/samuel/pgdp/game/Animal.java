@@ -25,6 +25,14 @@ public class Animal {
         this.square = square;
     }
 
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    public String getSquare() {
+        return square;
+    }
+
     /**
      * Ermittelt die moeglichen Zuege gemaess den Spielregeln,
      * die das Tier von seinem Feld aus in der aktuellen Position
@@ -51,4 +59,11 @@ public class Animal {
         throw new RuntimeException("Method sunset should have been overridden");
     }
 
+    public void kill() {
+        position.kill(square);
+    }
+
+    public String getGender() {
+        return female ? "female" : "male";
+    }
 }
