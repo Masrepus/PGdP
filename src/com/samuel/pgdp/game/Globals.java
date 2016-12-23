@@ -21,7 +21,7 @@ public class Globals {
 
     // Der Wert von ANSI darf geaendert werden.
     // Alles andere muss unveraendert bleiben.
-    private static final boolean ANSI = true; // or false
+    private static final boolean ANSI = false; // or false
 
 
 

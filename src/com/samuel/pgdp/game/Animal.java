@@ -21,6 +21,9 @@ public class Animal {
         alive = true;
     }
 
+    public void setSquare(String square) {
+        this.square = square;
+    }
 
     /**
      * Ermittelt die moeglichen Zuege gemaess den Spielregeln,

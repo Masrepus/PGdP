@@ -28,6 +28,7 @@ public class Game {
     public void startGame(boolean ladiesFirst){
         pos = new Position();
         pos.reset(ladiesFirst ? 'W' : 'M');
+        System.out.println(pos);
         //TODO
     }
 }

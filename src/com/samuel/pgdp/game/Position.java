@@ -21,6 +21,8 @@ public class Position {
      */
     private Animal[] myAnimals;
     private int nrAnimals;
+    public static final String backRow = "sehllhes";
+    public static final String frontRow = "pkkkkkkp";
 
     /**
      * Spieler, der als naechstes ziehen darf ('M' oder 'W').
@@ -34,7 +36,77 @@ public class Position {
      * Der Parameter gibt an, welche Seite beginnt ('M' oder 'W').
      */
     public void reset(char movesNext) {
-        //TODO
+        next = movesNext;
+
+        //we have 16 animals for each team
+        nrAnimals = 32;
+
+        //init the animal positions
+        myAnimals = new Animal[32];
+        //females front row
+        int nextAnimal = initAnimals(true, true, 0);
+        //females back row
+        nextAnimal = initAnimals(true, false, nextAnimal);
+        //males front row
+        nextAnimal = initAnimals(false, true, nextAnimal);
+        //males back row
+        initAnimals(false, false, nextAnimal);
+    }
+
+    /**
+     * Sets one row of animals to the default value for a given gender
+     *
+     * @param females     whether a row of females or a row of males should be initialized
+     * @param useFrontRow whether the front row or the back row of animals is to be initialized
+     * @param currAnimal  the first place in myAnimals that is currently empty
+     * @return the next empty position in myAnimals after this initialization
+     */
+    private int initAnimals(boolean females, boolean useFrontRow, int currAnimal) {
+        //both parties have the same animals in their front and back row, but the row numbers are different
+        int front = !females ? 7 : 2;
+        int back = !females ? 8 : 1;
+
+        //start with front row
+        char column = 'a';
+        int row = useFrontRow ? front : back;
+
+        for (int i = 0; i < (useFrontRow ? frontRow : backRow).length(); i++) {
+
+            Animal animal = new Animal(females);
+
+            //set the animal's race
+            switch ((useFrontRow ? frontRow : backRow).charAt(i)) {
+                case 'k':
+                    animal = new Rabbit(females);
+                    break;
+                case 'p':
+                    animal = new Penguin(females);
+                    break;
+                case 's':
+                    animal = new Snake(females);
+                    break;
+                case 'e':
+                    animal = new Elephant(females);
+                    break;
+                case 'h':
+                    animal = new Horse(females);
+                    break;
+                case 'l':
+                    animal = new Leopard(females);
+                    break;
+            }
+
+            //now set the curent position
+            animal.setSquare("" + column + row);
+
+            //done, now we can add it
+            myAnimals[currAnimal] = animal;
+            currAnimal++;
+            column++;
+        }
+
+        //return the next animal id
+        return currAnimal;
     }
 
 
