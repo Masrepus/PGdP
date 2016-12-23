@@ -1,4 +1,4 @@
-package pgdp.game;
+package com.samuel.pgdp.game;
 
 public class Horse extends Vegetarian {
 

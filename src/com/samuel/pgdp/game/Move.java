@@ -1,4 +1,4 @@
-package pgdp.game;
+package com.samuel.pgdp.game;
 
 /**
  * Die Klasse Move repraesentiert einen einzelnen Zug.

@@ -1,4 +1,4 @@
-package pgdp.game;
+package com.samuel.pgdp.game;
 
 /**
  * Enthaelt Konstanten fuer die toString-Methoden der Tierklassen.
