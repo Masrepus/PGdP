@@ -124,6 +124,7 @@ public class Position {
      */
     public void applyMoves(Move[] moves) {
         for (Move move : moves) {
+            if (move == null) continue;
             //get the animal to be moved, is not null because the calling method has to take care of the move's legality!
             Animal movingAnimal = getAnimal(move.getFrom());
             //get the animal at the destination point, if there is any
@@ -272,5 +273,9 @@ public class Position {
 
         //nothing found, return null
         return null;
+    }
+
+    public char getNext() {
+        return next;
     }
 }
