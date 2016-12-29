@@ -198,6 +198,11 @@ public class Position {
         return str;
     }
 
+    /**
+     * Removes a given animal from the board
+     *
+     * @param square the position of the animal to be killed
+     */
     public void kill(String square) {
         //copy the animals array and remove the animal to be killed
         Animal[] tmp = new Animal[nrAnimals - 1];
@@ -215,12 +220,18 @@ public class Position {
         nrAnimals--;
     }
 
+    /**
+     * Invokes {@link Animal#sunset()} for all animals in {@link #myAnimals}
+     */
     public void doSunset() {
         for (Animal a : myAnimals) {
             a.sunset();
         }
     }
 
+    /**
+     * Prints a message displaying the number of remaining days without food for each predator
+     */
     public void printDaysRemaining() {
         System.out.println("Days remaining without food:");
         for (int i = 0; i < myAnimals.length; i++) {
@@ -239,6 +250,12 @@ public class Position {
         }
     }
 
+    /**
+     * Find a specific animal
+     * @param square the animal's position on the board
+     * @return the desired animal
+     * null if there is no animal at the specified square
+     */
     public Animal getAnimal(String square) {
         //iterate through all animals and search for the right square
         for (Animal a : myAnimals) {

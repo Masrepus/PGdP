@@ -53,6 +53,9 @@ public class Game {
         }
     }
 
+    /**
+     * Handles one player's moves: You can do up to 4 moves per round, but not more than 3 vegetarians and 1 predator. Handles input format correctness and semantical legality regarding the animal to move and the desired target square. If the player has submitted 4 correct moves or aborted the adding process, the chosen moves are passed on to {@link Position#applyMoves(Move[])}
+     */
     private void nextMove() {
         Move[] moves = new Move[4];
         int i = 0;
@@ -109,6 +112,12 @@ public class Game {
         pos.applyMoves(moves);
     }
 
+    /**
+     * Checks whether a String input matches the ColumnRowColumnRow scheme for moves
+     *
+     * @param move the String to test
+     * @return true if {@code move} matches the scheme or if the input was x or X
+     */
     private boolean formatIsLegal(String move) {
         //check if the input string's format is correct
         if (move.equals("x") || move.equals("X")) return true;
@@ -116,14 +125,28 @@ public class Game {
             return move.length() == 4 && isColumn(move.charAt(0)) && isRow(move.charAt(1)) && isColumn(move.charAt(2)) && isRow(move.charAt(3));
     }
 
+    /**
+     * Checks whether a given char refers to a column
+     * @param c the char to test
+     * @return true if {@code c} is between 'a' and 'h'
+     */
     private boolean isColumn(char c) {
         return (c <= 'h' && c >= 'a');
     }
 
+    /**
+     * Checks whether a given char refers to a column
+     * @param c the char to test
+     * @return true if {@code c} is between 1 and 8
+     */
     private boolean isRow(char c) {
         return (c <= '8' && c >= '1');
     }
 
+    /**
+     * Wrapper method for {@link Position#theWinner()}
+     * @return true if there is a winner, i.e. {@link Position#theWinner()} != 'X'
+     */
     private boolean gameOver() {
         return pos.theWinner() != 'X';
     }
