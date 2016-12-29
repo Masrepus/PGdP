@@ -1,5 +1,7 @@
 package com.samuel.pgdp.game;
 
+import java.util.Arrays;
+
 /**
  * Die Klasse Position repraesentiert eine Spielsituation.
  */
@@ -124,6 +126,8 @@ public class Position {
      */
     public void applyMoves(Move[] move) {
         //TODO
+        System.out.println("Called applyMoves with " + Arrays.toString(move));
+        next = next == 'W' ? 'M' : 'W';
     }
 
 
@@ -190,7 +194,7 @@ public class Position {
             }
             str += " " + i + "\n";
         }
-        str += "  a b c d e f g h\nIt is " + next + "'s turn.\n";
+        str += "   a b c d e f g h\nIt is " + next + "'s turn.\n";
         return str;
     }
 
@@ -233,5 +237,15 @@ public class Position {
                 if (i < myAnimals.length - 1) System.out.print(", ");
             }
         }
+    }
+
+    public Animal getAnimal(String square) {
+        //iterate through all animals and search for the right square
+        for (Animal a : myAnimals) {
+            if (a.getSquare().equals(square)) return a;
+        }
+
+        //nothing found, return null
+        return null;
     }
 }

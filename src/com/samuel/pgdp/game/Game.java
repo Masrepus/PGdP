@@ -28,7 +28,103 @@ public class Game {
     public void startGame(boolean ladiesFirst){
         pos = new Position();
         pos.reset(ladiesFirst ? 'W' : 'M');
-        System.out.println(pos);
-        //TODO
+
+        //start game loop
+        while (!gameOver()) {
+            //first print the board and animal infos
+            System.out.println(pos);
+            pos.printDaysRemaining();
+
+            //now ask for the next move
+            System.out.println();
+            nextMove();
+
+            //it's the next player's turn
+            //first print the board and animal infos
+            System.out.println(pos);
+            pos.printDaysRemaining();
+
+            //now ask for the next move
+            System.out.println();
+            nextMove();
+
+            //both players have played, invoke sunset
+            pos.doSunset();
+        }
+    }
+
+    private void nextMove() {
+        Move[] moves = new Move[4];
+        int i = 0;
+        int vegRemaining, predRemaining;
+        //3 vegetarians and 1 predator can be moved in one round
+        vegRemaining = 3;
+        predRemaining = 1;
+
+        //the player is allowed to do up to 4 moves per round
+        outerLoop:
+        while (i < 4) {
+            Animal targetAnimal = null;
+            String move;
+            do {
+                //ask which move we should do
+                move = IO.readString("\nPlease choose your next move (format: XYAB where X = start square column, Y = start square row, A = destination square column, B = destination square row. Example: a2a3) or type x to stop adding moves\n");
+                while (!formatIsLegal(move)) {
+                    System.out.println("The format of " + move + " is not legal!");
+                    move = IO.readString("\nPlease choose your next move (format: XYAB where X = start square column, Y = start square row, A = destination square column, B = destination square row. Example: a2a3) or type x to stop adding moves\n");
+                }
+
+                //check if the player doesn't want to add any more moves
+                if (move.equals("x") || move.equals("X")) break outerLoop; //stop the whole process of adding moves
+
+                //the move's format is legal, now check if the player is allowed to make this move with the selected animal
+                targetAnimal = pos.getAnimal("" + move.charAt(0) + move.charAt(1));
+
+                //check if this animal exists
+                if (targetAnimal == null)
+                    System.out.println("There is no animal at " + move.charAt(0) + move.charAt(1) + ", choose your move again!");
+            } while (targetAnimal == null);
+
+            //check if this animal is allowed to move (only 3 vegetarians and 1 predator per round!)
+            if (targetAnimal instanceof Vegetarian && vegRemaining > 0 || targetAnimal instanceof Predator && predRemaining > 0) {
+                //animal is allowed to move, now check if it is allowed to move to the desired destination
+                if (targetAnimal.isMoveLegal("" + move.charAt(2) + move.charAt(3))) {
+                    //move is ok, add it to the current moves
+                    moves[i] = new Move(move);
+
+                    //increase the move counter, decrease the correct "remaining" counter and tell the player how many moves he can still add
+                    i++;
+                    if (targetAnimal instanceof Vegetarian) vegRemaining--;
+                    else predRemaining--;
+                    System.out.println("Move " + move + " has been added to this round's moves. You can now add up to " + (4 - i) + " more moves:\n" +
+                            vegRemaining + " vegetarians, " + predRemaining + " predators.\n");
+                }
+            } else {
+                //tell the player that he can not move any more vegetarians or predators if the corresponding counter is 0
+                System.out.println("Your chosen animal is a " + (targetAnimal instanceof Vegetarian ? "vegetarian" : "predator") + ", but you are not allowed to move any more animals of this kind! Choose again!");
+            }
+        }
+
+        //player is done adding moves, now execute them
+        pos.applyMoves(moves);
+    }
+
+    private boolean formatIsLegal(String move) {
+        //check if the input string's format is correct
+        if (move.equals("x") || move.equals("X")) return true;
+        else
+            return move.length() == 4 && isColumn(move.charAt(0)) && isRow(move.charAt(1)) && isColumn(move.charAt(2)) && isRow(move.charAt(3));
+    }
+
+    private boolean isColumn(char c) {
+        return (c <= 'h' && c >= 'a');
+    }
+
+    private boolean isRow(char c) {
+        return (c <= '8' && c >= '1');
+    }
+
+    private boolean gameOver() {
+        return pos.theWinner() != 'X';
     }
 }

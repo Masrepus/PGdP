@@ -66,4 +66,9 @@ public class Animal {
     public String getGender() {
         return female ? "female" : "male";
     }
+
+    public boolean isMoveLegal(String destination) {
+        //TODO
+        return true;
+    }
 }
