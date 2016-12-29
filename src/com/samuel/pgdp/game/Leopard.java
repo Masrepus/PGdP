@@ -16,6 +16,10 @@ public class Leopard extends Predator {
         daysRemaining = 5;
     }
 
+    @Override
+    protected void resetDaysRemaining() {
+        daysRemaining = 5;
+    }
 
     @Override
     public String toString(){

@@ -1,7 +1,5 @@
 package com.samuel.pgdp.game;
 
-import java.util.Arrays;
-
 /**
  * Die Klasse Position repraesentiert eine Spielsituation.
  */
@@ -122,11 +120,21 @@ public class Position {
      * gespielt werden. Insbesondere wechselt durch den Aufruf das Zugrecht,
      * da M und W abwechselnd ziehen.
      *
-     * @param move Array mit den Zuegen, die ausgefuehrt werden sollen.
+     * @param moves Array mit den Zuegen, die ausgefuehrt werden sollen.
      */
-    public void applyMoves(Move[] move) {
-        //TODO
-        System.out.println("Called applyMoves with " + Arrays.toString(move));
+    public void applyMoves(Move[] moves) {
+        for (Move move : moves) {
+            //get the animal to be moved, is not null because the calling method has to take care of the move's legality!
+            Animal movingAnimal = getAnimal(move.getFrom());
+            //get the animal at the destination point, if there is any
+            Animal targetAnimal = getAnimal(move.getTo());
+
+            //move the animal to the destination square and kill any animal that was there before
+            movingAnimal.setSquare(move.getTo());
+            //if there is an animal at the destination, we can assume that movingAnimal is a predator. This has to be checked by method callers!
+            if (targetAnimal != null) ((Predator) movingAnimal).eat(targetAnimal);
+        }
+
         next = next == 'W' ? 'M' : 'W';
     }
 

@@ -28,4 +28,14 @@ public class Predator extends Animal {
     public int getDaysRemaining() {
         return daysRemaining;
     }
+
+    protected void resetDaysRemaining() {
+        //will be overridden in child classes
+    }
+
+    public void eat(Animal targetAnimal) {
+        //kill the animal and reset the days without food
+        position.kill(targetAnimal.getSquare());
+        resetDaysRemaining();
+    }
 }

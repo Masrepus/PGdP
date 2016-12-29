@@ -15,6 +15,10 @@ public class Penguin extends Predator {
         daysRemaining = 12;
     }
 
+    @Override
+    protected void resetDaysRemaining() {
+        daysRemaining = 12;
+    }
 
     @Override
     public String toString(){

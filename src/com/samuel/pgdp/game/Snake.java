@@ -16,6 +16,10 @@ public class Snake extends Predator {
         daysRemaining = 9;
     }
 
+    @Override
+    protected void resetDaysRemaining() {
+        daysRemaining = 9;
+    }
 
     @Override
     public String toString(){

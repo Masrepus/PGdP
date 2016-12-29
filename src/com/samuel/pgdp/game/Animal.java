@@ -68,7 +68,26 @@ public class Animal {
     }
 
     public boolean isMoveLegal(String destination) {
-        //TODO
-        return true;
+        //check if there is another animal at our destination
+        Animal targetAnimal = position.getAnimal(destination);
+        if (targetAnimal != null) {
+            //we have an animal there, so we can only move there if we are a predator and the target is a vegetarian
+            if (this instanceof Vegetarian || targetAnimal instanceof Predator) return false;
+        }
+
+        //destination field is either clear or we can eat the target
+        //now check whether this animal can actually reach this square
+        List<Move> possibleMoves = getPossibleMoves();
+        for (int i = 0; i < possibleMoves.length(); i++) {
+            if (possibleMoves.get(i).getTo().equals(destination)) return true;
+        }
+
+        //doesn't seem like this move is legal
+        return false;
+    }
+
+    private List<Move> getPossibleMoves() {
+        //has to be overridden by child classes
+        return new List<>();
     }
 }
