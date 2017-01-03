@@ -41,7 +41,24 @@ public class Animal {
      * Muss von jeder einzelnen Tierklasse ueberschrieben werden.
      */
     public Move[] possibleMoves(){
-        return null;
+        //first get the moves the animal can do (without taking into account any animals in its way etc)
+        List<Move> rawMoves = getRawPossibleMoves();
+
+        //now check which of these moves are legal
+        List<Move> legalMoves = new List<>();
+        Move curr;
+        for (int i = 0; i < rawMoves.length(); i++) {
+            curr = rawMoves.get(i);
+            if (isMoveLegal(curr.getTo())) legalMoves.add(curr);
+        }
+
+        //now we have the legal moves, convert it to an array
+        Move[] moves = new Move[legalMoves.length()];
+        for (int i = 0; i < legalMoves.length(); i++) {
+            moves[i] = legalMoves.get(i);
+        }
+
+        return moves;
     }
 
 
@@ -79,7 +96,7 @@ public class Animal {
 
         //destination field is either clear or we can eat the target
         //now check whether this animal can actually reach this square
-        List<Move> possibleMoves = getPossibleMoves();
+        List<Move> possibleMoves = getRawPossibleMoves();
         for (int i = 0; i < possibleMoves.length(); i++) {
             if (possibleMoves.get(i).getTo().equals(destination)) return true;
         }
@@ -93,8 +110,33 @@ public class Animal {
      *
      * @return a {@link List} of moves that are possible for this animal
      */
-    protected List<Move> getPossibleMoves() {
+    protected List<Move> getRawPossibleMoves() {
         //has to be overridden by child classes
         return new List<>();
+    }
+
+    public void printPossibleMoves() {
+        Move[] moves = possibleMoves();
+
+        System.out.println("   a b c d e f g h");
+        for (char r = '8'; r >= '1'; r--) {
+            System.out.print(r + " ");
+            for (char c = 'a'; c <= 'h'; c++) {
+                boolean used = false;
+                for (int i = 0; i < moves.length; i++) {
+                    if (moves[i].getTo().equals("" + c + r)) {
+                        System.out.print(" X");
+                        used = true;
+                        break;
+                    }
+                }
+                if (square.equals("" + c + r)) System.out.print(" O");
+                else if (!used) System.out.print(" -");
+
+            }
+            System.out.print(" " + r + "\n");
+        }
+
+        System.out.println("   a b c d e f g h");
     }
 }

@@ -28,7 +28,12 @@ public class Penguin extends Predator {
     }
 
     @Override
-    protected List<Move> getPossibleMoves() {
+    public Move[] possibleMoves() {
+        return super.possibleMoves();
+    }
+
+    @Override
+    protected List<Move> getRawPossibleMoves() {
         //possible moves: one field in either direction
         List<Move> tmp = new List<>();
         char column = square.charAt(0);
