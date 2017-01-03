@@ -60,6 +60,7 @@ public class Animal {
     }
 
     public void kill() {
+        alive = false;
         position.kill(square);
     }
 
