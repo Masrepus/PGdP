@@ -72,7 +72,8 @@ public class Animal {
         //check if there is another animal at our destination
         Animal targetAnimal = position.getAnimal(destination);
         if (targetAnimal != null) {
-            //we have an animal there, so we can only move there if we are a predator and the target is a vegetarian
+            //we have an animal there, so we can only move there if we are a predator and the target is a vegetarian, AND if the target is an enemy
+            if (targetAnimal.getGender().equals(getGender())) return false;
             if (this instanceof Vegetarian || targetAnimal instanceof Predator) return false;
         }
 
@@ -87,7 +88,12 @@ public class Animal {
         return false;
     }
 
-    private List<Move> getPossibleMoves() {
+    /**
+     * Finds all moves that are technically possible for this animal. Doesn't take into account the legality of any moves that point to an occupied field. The caller has to handlle this himself. Moves that have an off-board destination are dismissed by this method
+     *
+     * @return a {@link List} of moves that are possible for this animal
+     */
+    protected List<Move> getPossibleMoves() {
         //has to be overridden by child classes
         return new List<>();
     }
