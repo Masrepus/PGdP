@@ -131,9 +131,11 @@ public class Position {
             Animal targetAnimal = getAnimal(move.getTo());
 
             //move the animal to the destination square and kill any animal that was there before
-            movingAnimal.setSquare(move.getTo());
             //if there is an animal at the destination, we can assume that movingAnimal is a predator. This has to be checked by method callers!
             if (targetAnimal != null) ((Predator) movingAnimal).eat(targetAnimal);
+
+            //now the destination is empty, move the animal there
+            movingAnimal.setSquare(move.getTo());
         }
 
         next = next == 'W' ? 'M' : 'W';
