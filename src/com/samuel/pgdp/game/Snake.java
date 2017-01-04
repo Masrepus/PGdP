@@ -38,6 +38,7 @@ public class Snake extends Predator {
         List<Move> moves = new List<>();
         char column = square.charAt(0);
         char row = square.charAt(1);
+        int moveSequence = 0;
 
         boolean originalRow, originalColumn;
 
@@ -45,38 +46,63 @@ public class Snake extends Predator {
         originalColumn = false;
 
         for (char r = (char) (row + 1); r <= '8'; r++) {
-            if (originalColumn) moves.add(new Move(square, "" + column + r));
-            else moves.add(new Move(square, "" + (char) (column - 1) + r));
+            Move move;
+            if (originalColumn) move = new Move(square, "" + column + r);
+            else move = new Move(square, "" + (char) (column - 1) + r);
+
+            //now tell the move that it is part of this sequence of multiple moves, this is important to determine intermediate fields
+            move.setMoveSequence(moveSequence);
 
             originalColumn = !originalColumn;
         }
 
         //down
+        moveSequence++;
         originalColumn = false;
 
         for (char r = (char) (row - 1); r >= '1'; r--) {
-            if (originalColumn) moves.add(new Move(square, "" + column + r));
-            else moves.add(new Move(square, "" + (char) (column + 1) + r));
+            Move move;
+            if (originalColumn) move = new Move(square, "" + column + r);
+            else move = new Move(square, "" + (char) (column + 1) + r);
+
+            //set move sequence
+            move.setMoveSequence(moveSequence);
+
+            moves.add(move);
 
             originalColumn = !originalColumn;
         }
 
         //left
+        moveSequence++;
         originalRow = false;
 
         for (char c = (char) (column - 1); c >= 'a'; c--) {
-            if (originalRow) moves.add(new Move(square, "" + c + row));
-            else moves.add(new Move(square, "" + c + (char) (row - 1)));
+            Move move;
+            if (originalRow) move = new Move(square, "" + c + row);
+            else move = new Move(square, "" + c + (char) (row - 1));
+
+            //set move sequence
+            move.setMoveSequence(moveSequence);
+
+            moves.add(move);
 
             originalRow = !originalRow;
         }
 
         //right
+        moveSequence++;
         originalRow = false;
 
         for (char c = (char) (column + 1); c <= 'h'; c++) {
-            if (originalRow) moves.add(new Move(square, "" + c + row));
-            else moves.add(new Move(square, "" + c + (char) (row + 1)));
+            Move move;
+            if (originalRow) move = new Move(square, "" + c + row);
+            else move = new Move(square, "" + c + (char) (row + 1));
+
+            //set move sequence
+            move.setMoveSequence(moveSequence);
+
+            moves.add(move);
 
             originalRow = !originalRow;
         }

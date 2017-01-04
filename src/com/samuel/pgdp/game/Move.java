@@ -12,6 +12,7 @@ package com.samuel.pgdp.game;
 public class Move {
 
     String from, to;
+    private int moveSequence;
 
     public Move(String from, String to){
         this.from = from;
@@ -28,6 +29,14 @@ public class Move {
         // Rueckgabe exakt in der Form <Ausgangsfeld><Zielfeld> als String,
         // also z. B. "b2b3" fuer den Zug eines Tiers von "b2" nach "b3".
         return from + to;
+    }
+
+    public void setMoveSequence(int moveSequence) {
+        this.moveSequence = moveSequence;
+    }
+
+    public int getMoveSequence() {
+        return moveSequence;
     }
 
     public String getFrom() {

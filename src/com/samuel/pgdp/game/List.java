@@ -112,6 +112,32 @@ public class List<T> {
         return null;
     }
 
+    public int find(T element) {
+        if (element == null) return -1;
+
+        //iterate through the list and see if we find this element
+        Entry curr = head;
+        int id = 0;
+        while (curr != null) {
+            if (curr.elem.equals(element)) return id;
+            id++;
+            curr = curr.next;
+        }
+
+        //didn't find the element
+        return -1;
+    }
+
+    public List<T> duplicate() {
+        List<T> tmp = new List<>();
+
+        for (int i = 0; i < length(); i++) {
+            tmp.add(get(i));
+        }
+
+        return tmp;
+    }
+
     /**
      * sets the head of each list element to newHead
      *

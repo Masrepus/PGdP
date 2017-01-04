@@ -69,4 +69,10 @@ public class Penguin extends Predator {
         //now we got everything
         return moves;
     }
+
+    @Override
+    protected boolean checkIntermediateFields(List<Move> possibleMoves, Move move) {
+        //a penguin has no intermediate fields
+        return true;
+    }
 }

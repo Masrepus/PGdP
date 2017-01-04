@@ -98,11 +98,43 @@ public class Animal {
         //now check whether this animal can actually reach this square
         List<Move> possibleMoves = getRawPossibleMoves();
         for (int i = 0; i < possibleMoves.length(); i++) {
-            if (possibleMoves.get(i).getTo().equals(destination)) return true;
+            //if we can reach this square, check if the path is free of animals
+            if (possibleMoves.get(i).getTo().equals(destination))
+                return checkIntermediateFields(possibleMoves, possibleMoves.get(i));
         }
 
         //doesn't seem like this move is legal
         return false;
+    }
+
+    protected boolean checkIntermediateFields(List<Move> possibleMoves, Move move) {
+        //we have to work on a copy of this list because we will remove items
+        List<Move> intermediates = possibleMoves.duplicate();
+
+        //first find out which move sequence we have to check
+        int moveSequence = move.getMoveSequence();
+
+        //now eliminate all moves that do not belong to this sequence
+        for (int i = intermediates.length() - 1; i >= 0; i--) {
+            if (intermediates.get(i).getMoveSequence() != moveSequence) intermediates.remove(i);
+        }
+
+        //now we only have the moves for the correct move sequence, so we have to eliminate all moves that would come after this move's square
+        //moves in possibleMoves are sorted ascending by destination square, so moves after the desired one are later in the list
+        int moveId = intermediates.find(move);
+
+        //remove the desired move and all moves afterward
+        for (int i = intermediates.length() - 1; i >= moveId; i--) {
+            intermediates.remove(i);
+        }
+
+        //now we have all intermediate fields, check if they are empty
+        for (int i = 0; i < intermediates.length(); i++) {
+            if (position.getAnimal(intermediates.get(i).getTo()) != null) return false;
+        }
+
+        //no animals could be found in this animal's path
+        return true;
     }
 
     /**
