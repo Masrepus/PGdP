@@ -157,12 +157,12 @@ public class Animal {
                 boolean used = false;
                 for (int i = 0; i < moves.length; i++) {
                     if (moves[i].getTo().equals("" + c + r)) {
-                        System.out.print(" X");
+                        System.out.print(" " + moves[i].getMoveSequence());
                         used = true;
                         break;
                     }
                 }
-                if (square.equals("" + c + r)) System.out.print(" O");
+                if (square.equals("" + c + r)) System.out.print(" X");
                 else if (!used) System.out.print(" -");
 
             }
