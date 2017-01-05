@@ -45,15 +45,9 @@ public class Snake extends Predator {
         //up, alternate columns
         originalColumn = false;
 
-        for (char r = (char) (row + 1); r <= '8'; r++) {
-            Move move;
-            if (originalColumn) move = new Move(square, "" + column + r);
-            else move = new Move(square, "" + (char) (column - 1) + r);
-
-            //now tell the move that it is part of this sequence of multiple moves, this is important to determine intermediate fields
-            move.setMoveSequence(moveSequence);
-
-            moves.add(move);
+        for (int rowOffset = 1; (char) (row + rowOffset) <= '8'; rowOffset++) {
+            if (originalColumn) addMove(moves, 0, rowOffset, moveSequence);
+            else addMove(moves, -1, rowOffset, moveSequence);
 
             originalColumn = !originalColumn;
         }
@@ -62,15 +56,9 @@ public class Snake extends Predator {
         moveSequence++;
         originalColumn = false;
 
-        for (char r = (char) (row - 1); r >= '1'; r--) {
-            Move move;
-            if (originalColumn) move = new Move(square, "" + column + r);
-            else move = new Move(square, "" + (char) (column + 1) + r);
-
-            //set move sequence
-            move.setMoveSequence(moveSequence);
-
-            moves.add(move);
+        for (int rowOffset = -1; (char) (row + rowOffset) >= '1'; rowOffset--) {
+            if (originalColumn) addMove(moves, 0, rowOffset, moveSequence);
+            else addMove(moves, 1, rowOffset, moveSequence);
 
             originalColumn = !originalColumn;
         }
@@ -79,15 +67,9 @@ public class Snake extends Predator {
         moveSequence++;
         originalRow = false;
 
-        for (char c = (char) (column - 1); c >= 'a'; c--) {
-            Move move;
-            if (originalRow) move = new Move(square, "" + c + row);
-            else move = new Move(square, "" + c + (char) (row - 1));
-
-            //set move sequence
-            move.setMoveSequence(moveSequence);
-
-            moves.add(move);
+        for (int columnOffset = -1; (char) (column + columnOffset) >= 'a'; columnOffset--) {
+            if (originalRow) addMove(moves, columnOffset, 0, moveSequence);
+            else addMove(moves, columnOffset, -1, moveSequence);
 
             originalRow = !originalRow;
         }
@@ -96,15 +78,9 @@ public class Snake extends Predator {
         moveSequence++;
         originalRow = false;
 
-        for (char c = (char) (column + 1); c <= 'h'; c++) {
-            Move move;
-            if (originalRow) move = new Move(square, "" + c + row);
-            else move = new Move(square, "" + c + (char) (row + 1));
-
-            //set move sequence
-            move.setMoveSequence(moveSequence);
-
-            moves.add(move);
+        for (int columnOffset = 1; (char) (column + columnOffset) <= 'h'; columnOffset++) {
+            if (originalRow) addMove(moves, columnOffset, 0, moveSequence);
+            else addMove(moves, columnOffset, 1, moveSequence);
 
             originalRow = !originalRow;
         }

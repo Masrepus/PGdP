@@ -177,4 +177,25 @@ public class Animal {
         char row = square.charAt(1);
         moves.add(new Move("" + column + row, "" + (char) (column + columnOffset) + (char) (row + rowOffset)));
     }
+
+    protected void addMove(List<Move> moves, int columnOffset, int rowOffset, int moveSequence) {
+        char column = square.charAt(0);
+        char row = square.charAt(1);
+        Move move = new Move("" + column + row, "" + (char) (column + columnOffset) + (char) (row + rowOffset));
+        move.setMoveSequence(moveSequence);
+        moves.add(move);
+    }
+
+    protected List<Move> removeOffScreenMove(List<Move> tmp) {
+        //now eliminate all moves whose destinations are not on the board
+        List<Move> moves = new List<>();
+        for (int i = 0; i < tmp.length(); i++) {
+            Move move = tmp.get(i);
+            char column = move.getTo().charAt(0);
+            char row = move.getTo().charAt(1);
+            if (Game.isColumn(column) && Game.isRow(row)) moves.add(move);
+        }
+
+        return moves;
+    }
 }

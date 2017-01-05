@@ -39,35 +39,20 @@ public class Penguin extends Predator {
         char column = square.charAt(0);
         char row = square.charAt(1);
 
-        //one to the right
-        tmp.add(new Move(square, "" + (char) (column + 1) + row));
-        //one to the left
-        tmp.add(new Move(square, "" + (char) (column - 1) + row));
-        //one up
-        tmp.add(new Move(square, "" + column + (char) (row + 1)));
-        //one down
-        tmp.add(new Move(square, "" + column + (char) (row - 1)));
+        //one up, down, right and left
+        addMove(tmp, 0, 1);
+        addMove(tmp, 0, -1);
+        addMove(tmp, 1, 0);
+        addMove(tmp, -1, 0);
 
-        //up and right
-        tmp.add(new Move(square, "" + (char) (column + 1) + (char) (row + 1)));
-        //down and right
-        tmp.add(new Move(square, "" + (char) (column - 1) + (char) (row + 1)));
-        //up and left
-        tmp.add(new Move(square, "" + (char) (column + 1) + (char) (row - 1)));
-        //down and left
-        tmp.add(new Move(square, "" + (char) (column - 1) + (char) (row - 1)));
+        //diagonal
+        addMove(tmp, 1, 1);
+        addMove(tmp, 1, -1);
+        addMove(tmp, -1, 1);
+        addMove(tmp, -1, -1);
 
         //now eliminate all moves whose destinations are not on the board
-        List<Move> moves = new List<>();
-        for (int i = 0; i < tmp.length(); i++) {
-            Move move = tmp.get(i);
-            column = move.getTo().charAt(0);
-            row = move.getTo().charAt(1);
-            if (column >= 'a' && column <= 'h' && row >= '1' && row <= '8') moves.add(move);
-        }
-
-        //now we got everything
-        return moves;
+        return removeOffScreenMove(tmp);
     }
 
     @Override

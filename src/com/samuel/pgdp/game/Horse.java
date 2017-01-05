@@ -52,6 +52,6 @@ public class Horse extends Vegetarian {
         addMove(moves, 3, -3);
 
         //done
-        return moves;
+        return removeOffScreenMove(moves);
     }
 }

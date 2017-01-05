@@ -38,61 +38,39 @@ public class Leopard extends Predator {
         List<Move> moves = new List<>();
         char column = square.charAt(0);
         char row = square.charAt(1);
-        int diagonalOffset = 1;
 
         //up + diagonally up
-        for (char r = (char) (row + 1); r <= '8'; r++) {
+        for (int rowOffset = 1, diagonalOffset = 1; (char) (row + rowOffset) <= '8'; rowOffset++, diagonalOffset++) {
             //up
-            Move move = new Move("" + column + row, "" + column + r);
-            move.setMoveSequence(0);
-            moves.add(move);
+            addMove(moves, 0, rowOffset, 0);
 
             //up and left
-            move = new Move("" + column + row, "" + (char) (column - diagonalOffset) + r);
-            move.setMoveSequence(1);
-            moves.add(move);
+            addMove(moves, -diagonalOffset, rowOffset, 1);
 
             //up and right
-            move = new Move("" + column + row, "" + (char) (column + diagonalOffset) + r);
-            move.setMoveSequence(2);
-            moves.add(move);
-
-            diagonalOffset++;
+            addMove(moves, diagonalOffset, rowOffset, 2);
         }
 
         //down + diagonally down
-        diagonalOffset = 1;
-
-        for (char r = (char) (row - 1); r >= '1'; r--) {
-            Move move = new Move("" + column + row, "" + column + r);
-            move.setMoveSequence(3);
-            moves.add(move);
+        for (int rowOffset = -1, diagonalOffset = 1; (char) (row + rowOffset) >= '1'; rowOffset--, diagonalOffset++) {
+            //down
+            addMove(moves, 0, rowOffset, 3);
 
             //down and left
-            move = new Move("" + column + row, "" + (char) (column - diagonalOffset) + r);
-            move.setMoveSequence(4);
-            moves.add(move);
+            addMove(moves, -diagonalOffset, rowOffset, 4);
 
             //down and right
-            move = new Move("" + column + row, "" + (char) (column + diagonalOffset) + r);
-            move.setMoveSequence(5);
-            moves.add(move);
-
-            diagonalOffset++;
+            addMove(moves, diagonalOffset, rowOffset, 5);
         }
 
         //right
-        for (char c = (char) (column + 1); c <= 'h'; c++) {
-            Move move = new Move("" + column + row, "" + c + row);
-            move.setMoveSequence(6);
-            moves.add(move);
+        for (int columnOffset = 1; (char) (column + columnOffset) <= 'h'; columnOffset++) {
+            addMove(moves, columnOffset, 0, 6);
         }
 
         //left
-        for (char c = (char) (column - 1); c >= 'a'; c--) {
-            Move move = new Move("" + column + row, "" + c + row);
-            move.setMoveSequence(7);
-            moves.add(move);
+        for (int columnOffset = -1; (char) (column + columnOffset) >= 'a'; columnOffset--) {
+            addMove(moves, columnOffset, 0, 7);
         }
 
         //we're done

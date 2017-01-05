@@ -30,37 +30,29 @@ public class Elephant extends Vegetarian {
         int moveSequence = 0;
 
         //up
-        for (char r = (char) (row + 1); r <= '8'; r++) {
-            Move move = new Move("" + column + row, "" + column + r);
-            move.setMoveSequence(moveSequence);
-            moves.add(move);
+        for (int rowOffset = 1; (char) (row + rowOffset) <= '8'; rowOffset++) {
+            addMove(moves, 0, rowOffset, moveSequence);
         }
 
         //down
         moveSequence++;
 
-        for (char r = (char) (row - 1); r >= '1'; r--) {
-            Move move = new Move("" + column + row, "" + column + r);
-            move.setMoveSequence(moveSequence);
-            moves.add(move);
+        for (int rowOffset = -1; (char) (row + rowOffset) >= '1'; rowOffset--) {
+            addMove(moves, 0, rowOffset, moveSequence);
         }
 
         //right
         moveSequence++;
 
-        for (char c = (char) (column + 1); c <= 'h'; c++) {
-            Move move = new Move("" + column + row, "" + c + row);
-            move.setMoveSequence(moveSequence);
-            moves.add(move);
+        for (int columnOffset = 1; (char) (column + columnOffset) <= 'h'; columnOffset++) {
+            addMove(moves, columnOffset, 0, moveSequence);
         }
 
         //left
         moveSequence++;
 
-        for (char c = (char) (column - 1); c >= 'a'; c--) {
-            Move move = new Move("" + column + row, "" + c + row);
-            move.setMoveSequence(moveSequence);
-            moves.add(move);
+        for (int columnOffset = -1; (char) (column + columnOffset) >= 'a'; columnOffset--) {
+            addMove(moves, columnOffset, 0, moveSequence);
         }
 
         //we're done
