@@ -29,6 +29,8 @@ public class Position {
      */
     private char next = 'W';
 
+    private char startingPlayer;
+
 
     /**
      * Stellt die Anfangsposition des Spiels her.
@@ -36,6 +38,7 @@ public class Position {
      */
     public void reset(char movesNext) {
         next = movesNext;
+        startingPlayer = next;
 
         //we have 16 animals for each team
         nrAnimals = 32;
@@ -123,6 +126,71 @@ public class Position {
      * @param moves Array mit den Zuegen, die ausgefuehrt werden sollen.
      */
     public void applyMoves(Move[] moves) {
+        int vegRemaining = 3, predRemaining = 1;
+        List<Move> toExecute = new List<>();
+
+        for (Move move : moves) {
+            if (move == null) continue;
+
+            //check the format
+            if (!Game.formatIsLegal(move.toString())) {
+                System.out.println("The format of " + move + " is not legal, not applying this move!");
+                continue;
+            }
+
+            //the move's format is legal, now check if the player is allowed to make this move with the selected animal
+            Animal movingAnimal = getAnimal(move.getFrom());
+
+            //check if this animal exists
+            if (movingAnimal == null) {
+                System.out.println("There is no animal at " + move.getFrom() + ", not executing this move!");
+                continue;
+            }
+
+            //check if this animal belongs to the current player
+            if (!movingAnimal.getGender().equals(next == 'W' ? "female" : "male")) {
+                System.out.println("Animal " + move.getFrom() + " does not belong to this player. Not executing the move!");
+                continue;
+            }
+
+            //check if this animal is allowed to move (only 3 vegetarians and 1 predator per round!)
+            if (movingAnimal instanceof Vegetarian && vegRemaining > 0 || movingAnimal instanceof Predator && predRemaining > 0) {
+                //animal is allowed to move, now check if it is allowed to move to the desired destination
+                if (movingAnimal.isMoveLegal(move.getTo())) {
+                    //move is ok, add it to the execution list
+                    toExecute.add(move);
+
+                    //decrease the correct "remaining" counter
+                    if (movingAnimal instanceof Vegetarian) vegRemaining--;
+                    else predRemaining--;
+                    System.out.println("Move " + move + " has been executed");
+                } else {
+                    //this move is not legal
+                    System.out.println("You can't move animal " + movingAnimal.getSquare() + " to " + move.getTo() + ", Choose again!");
+                }
+            } else {
+                //tell the player that he can not move any more vegetarians or predators if the corresponding counter is 0
+                System.out.println("Your chosen animal is a " + (movingAnimal instanceof Vegetarian ? "vegetarian" : "predator") + ", but you are not allowed to move any more animals of this kind! Move " + move + " not executed!");
+            }
+        }
+
+        //convert to arra
+        Move[] toExecuteArray = new Move[toExecute.length()];
+        for (int i = 0; i < toExecute.length(); i++) {
+            toExecuteArray[i] = toExecute.get(i);
+        }
+
+        executeMoves(toExecuteArray);
+
+        //print the game infos
+        System.out.println(this);
+        printDaysRemaining();
+
+        //check if we have to invoke sunset
+        if (next == startingPlayer) doSunset();
+    }
+
+    public void executeMoves(Move[] moves) {
         for (Move move : moves) {
             if (move == null) continue;
             //get the animal to be moved, is not null because the calling method has to take care of the move's legality!
