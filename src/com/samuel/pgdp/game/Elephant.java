@@ -10,6 +10,10 @@ public class Elephant extends Vegetarian {
         super(female);
     }
 
+    @Override
+    public Move[] possibleMoves() {
+        return super.possibleMoves();
+    }
 
     @Override
     public String toString(){
@@ -18,4 +22,48 @@ public class Elephant extends Vegetarian {
           : (Globals.darkSquare(this.square) ? Globals.ts_male_elephant_dark : Globals.ts_male_elephant_light);
     }
 
+    @Override
+    protected List<Move> getRawPossibleMoves() {
+        List<Move> moves = new List<>();
+        char column = square.charAt(0);
+        char row = square.charAt(1);
+        int moveSequence = 0;
+
+        //up
+        for (char r = (char) (row + 1); r <= '8'; r++) {
+            Move move = new Move("" + column + row, "" + column + r);
+            move.setMoveSequence(moveSequence);
+            moves.add(move);
+        }
+
+        //down
+        moveSequence++;
+
+        for (char r = (char) (row - 1); r >= '1'; r--) {
+            Move move = new Move("" + column + row, "" + column + r);
+            move.setMoveSequence(moveSequence);
+            moves.add(move);
+        }
+
+        //right
+        moveSequence++;
+
+        for (char c = (char) (column + 1); c <= 'h'; c++) {
+            Move move = new Move("" + column + row, "" + c + row);
+            move.setMoveSequence(moveSequence);
+            moves.add(move);
+        }
+
+        //left
+        moveSequence++;
+
+        for (char c = (char) (column - 1); c >= 'a'; c--) {
+            Move move = new Move("" + column + row, "" + c + row);
+            move.setMoveSequence(moveSequence);
+            moves.add(move);
+        }
+
+        //we're done
+        return moves;
+    }
 }
