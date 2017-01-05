@@ -53,6 +53,8 @@ public class Snake extends Predator {
             //now tell the move that it is part of this sequence of multiple moves, this is important to determine intermediate fields
             move.setMoveSequence(moveSequence);
 
+            moves.add(move);
+
             originalColumn = !originalColumn;
         }
 
