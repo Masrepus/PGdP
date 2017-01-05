@@ -171,4 +171,10 @@ public class Animal {
 
         System.out.println("   a b c d e f g h");
     }
+
+    protected void addMove(List<Move> moves, int columnOffset, int rowOffset) {
+        char column = square.charAt(0);
+        char row = square.charAt(1);
+        moves.add(new Move("" + column + row, "" + (char) (column + columnOffset) + (char) (row + rowOffset)));
+    }
 }

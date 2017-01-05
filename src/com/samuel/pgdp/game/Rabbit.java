@@ -63,7 +63,7 @@ public class Rabbit extends Vegetarian {
 
     @Override
     protected boolean checkIntermediateFields(List<Move> possibleMoves, Move move) {
-        //a penguin has no intermediate fields
+        //a rabbit has no intermediate fields
         return true;
     }
 
