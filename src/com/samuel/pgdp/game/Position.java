@@ -221,7 +221,17 @@ public class Position {
      * 'X' falls das Spiel noch nicht zu Ende ist.
      */
     public char theWinner() {
-        return 'X'; //TODO
+        //check if there are no animals left
+        if (myAnimals.length == 0) return 'N';
+
+        //check if one player has no animals but the other one does
+        String gender = myAnimals[0].getGender();
+        for (Animal animal : myAnimals) {
+            if (!animal.getGender().equals(gender)) return 'X';
+        }
+
+        //only animals of one gender on the board, finish the game
+        return gender.equals("female") ? 'W' : 'M';
     }
 
 

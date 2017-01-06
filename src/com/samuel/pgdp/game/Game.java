@@ -171,12 +171,16 @@ public class Game {
     }
 
     /**
-     * Wrapper method for {@link Position#theWinner()}
+     * Wrapper method for {@link Position#theWinner()}, additionally prints the game over message
      *
      * @return true if there is a winner, i.e. {@link Position#theWinner()} != 'X'
      */
     private boolean gameOver() {
-        return pos.theWinner() != 'X';
+        char winner = pos.theWinner();
+        if (winner != 'X') {
+            System.out.println("The game is over! Player " + winner + " is the winner!");
+            return true;
+        } else return false;
     }
 
     public List<Move> getCurrentMoves() {
