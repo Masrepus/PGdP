@@ -7,6 +7,7 @@ package com.samuel.pgdp.game;
 public class Game {
 
     private Position pos;
+    private List<Move> currentMoves;
 
 
     /**
@@ -26,6 +27,7 @@ public class Game {
      */
     public void startGame(boolean ladiesFirst) {
         pos = new Position();
+        pos.setGame(this);
         pos.reset(ladiesFirst ? 'W' : 'M');
 
         //start game loop
@@ -56,7 +58,7 @@ public class Game {
      * Handles one player's moves: You can do up to 4 moves per round, but not more than 3 vegetarians and 1 predator. Handles input format correctness and semantical legality regarding the animal to move and the desired target square. If the player has submitted 4 correct moves or aborted the adding process, the chosen moves are passed on to {@link Position#executeMoves(Move[])}
      */
     private void nextMove() {
-        List<Move> moves = new List<>();
+        currentMoves = new List<>();
         int i = 0;
         int vegRemaining, predRemaining;
         //3 vegetarians and 1 predator can be moved in one round
@@ -106,7 +108,7 @@ public class Game {
                 //animal is allowed to move, now check if it is allowed to move to the desired destination
                 if (movingAnimal.isMoveLegal("" + move.charAt(2) + move.charAt(3))) {
                     //move is ok, add it to the current moves
-                    moves.add(new Move(move));
+                    currentMoves.add(new Move(move));
 
                     //increase the move counter, decrease the correct "remaining" counter and tell the player how many moves he can still add
                     i++;
@@ -125,9 +127,9 @@ public class Game {
         }
 
         //now convert the list to an array
-        Move[] moveArray = new Move[moves.length()];
-        for (int j = 0; j < moves.length(); j++) {
-            moveArray[j] = moves.get(j);
+        Move[] moveArray = new Move[currentMoves.length()];
+        for (int j = 0; j < currentMoves.length(); j++) {
+            moveArray[j] = currentMoves.get(j);
         }
 
         //player is done adding moves, now execute them
@@ -175,5 +177,9 @@ public class Game {
      */
     private boolean gameOver() {
         return pos.theWinner() != 'X';
+    }
+
+    public List<Move> getCurrentMoves() {
+        return currentMoves;
     }
 }

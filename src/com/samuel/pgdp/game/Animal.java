@@ -88,6 +88,14 @@ public class Animal {
     public boolean isMoveLegal(String destination) {
         //check if there is another animal at our destination
         Animal targetAnimal = position.getAnimal(destination);
+
+        //check if another animal has already chosen the same destination or has the same starting point (one animal can't move twice in one round
+        List<Move> currentMoves = position.getGame().getCurrentMoves();
+        for (int i = 0; i < currentMoves.length(); i++) {
+            if (currentMoves.get(i).getTo().equals(destination)) return false;
+            if (currentMoves.get(i).getFrom().equals(square)) return false;
+        }
+
         if (targetAnimal != null) {
             //we have an animal there, so we can only move there if we are a predator and the target is a vegetarian, AND if the target is an enemy
             if (targetAnimal.getGender().equals(getGender())) return false;

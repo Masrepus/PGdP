@@ -31,6 +31,8 @@ public class Position {
 
     private char startingPlayer;
 
+    private Game game;
+
 
     /**
      * Stellt die Anfangsposition des Spiels her.
@@ -365,5 +367,13 @@ public class Position {
                 animal.printPossibleMoves(false);
             }
         }
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public Game getGame() {
+        return game;
     }
 }
