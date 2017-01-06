@@ -74,7 +74,7 @@ public class Leopard extends Predator {
         }
 
         //we're done
-        return moves;
+        return removeOffScreenMoveSequences(moves);
     }
 
 }

@@ -52,7 +52,7 @@ public class Penguin extends Predator {
         addMove(tmp, -1, -1);
 
         //now eliminate all moves whose destinations are not on the board
-        return removeOffScreenMove(tmp);
+        return removeOffScreenMoves(tmp);
     }
 
     @Override

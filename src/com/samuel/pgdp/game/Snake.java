@@ -85,6 +85,6 @@ public class Snake extends Predator {
             originalRow = !originalRow;
         }
 
-        return moves;
+        return removeOffScreenMoveSequences(moves);
     }
 }

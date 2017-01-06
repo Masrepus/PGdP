@@ -186,7 +186,7 @@ public class Animal {
         moves.add(move);
     }
 
-    protected List<Move> removeOffScreenMove(List<Move> tmp) {
+    protected List<Move> removeOffScreenMoves(List<Move> tmp) {
         //now eliminate all moves whose destinations are not on the board
         List<Move> moves = new List<>();
         for (int i = 0; i < tmp.length(); i++) {
@@ -194,6 +194,30 @@ public class Animal {
             char column = move.getTo().charAt(0);
             char row = move.getTo().charAt(1);
             if (Game.isColumn(column) && Game.isRow(row)) moves.add(move);
+        }
+
+        return moves;
+    }
+
+    protected List<Move> removeOffScreenMoveSequences(List<Move> tmp) {
+        //now eliminate all moves whose destinations are not on the board
+        List<Move> moves = new List<>();
+
+        //if offscreen moves are found, remove all moves of the same sequence coming afterwards
+        List<Integer> offScreenSequences = new List<>();
+        for (int i = 0; i < tmp.length(); i++) {
+            Move move = tmp.get(i);
+
+            //check if this sequences is already marked for deletion
+            if (offScreenSequences.find(move.getMoveSequence()) == -1) {
+                //sequence not marked yet
+                char column = move.getTo().charAt(0);
+                char row = move.getTo().charAt(1);
+                if (!Game.isColumn(column) || !Game.isRow(row)) {
+                    //add this sequence to the offscreen sequences
+                    offScreenSequences.add(move.getMoveSequence());
+                } else moves.add(move);
+            } //sequence found, move will not be added to moves
         }
 
         return moves;

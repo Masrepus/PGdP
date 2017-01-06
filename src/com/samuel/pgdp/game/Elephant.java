@@ -56,6 +56,6 @@ public class Elephant extends Vegetarian {
         }
 
         //we're done
-        return moves;
+        return removeOffScreenMoveSequences(moves);
     }
 }
