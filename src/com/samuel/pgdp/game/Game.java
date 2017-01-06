@@ -178,7 +178,8 @@ public class Game {
     private boolean gameOver() {
         char winner = pos.theWinner();
         if (winner != 'X') {
-            System.out.println("The game is over! Player " + winner + " is the winner!");
+            if (winner != 'N') System.out.println("The game is over! Player " + winner + " is the winner!");
+            else System.out.println("The game is over! It's a tie, everybody is a winner ;P");
             return true;
         } else return false;
     }

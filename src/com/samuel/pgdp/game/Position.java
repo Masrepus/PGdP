@@ -232,11 +232,27 @@ public class Position {
         //check if one player has no animals but the other one does
         String gender = myAnimals[0].getGender();
         for (Animal animal : myAnimals) {
-            if (!animal.getGender().equals(gender)) return 'X';
+            if (!animal.getGender().equals(gender)) return checkPredators();
         }
 
         //only animals of one gender on the board, finish the game
         return gender.equals("female") ? 'W' : 'M';
+    }
+
+    private char checkPredators() {
+        //check if there are still predators
+        for (Animal animal : myAnimals) {
+            if (animal instanceof Predator) return 'X';
+        }
+
+        //no predators left, now the one with more animals wins
+        int females = 0, males = 0;
+        for (Animal animal : myAnimals) {
+            if (animal.getGender().equals("female")) females++;
+            else males++;
+        }
+
+        return females == males ? 'N' : females > males ? 'W' : 'M';
     }
 
 
