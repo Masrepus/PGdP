@@ -13,6 +13,9 @@ public class Vegetarian extends Animal {
         super(female);
     }
 
+    /**
+     * A vegetarian doesn't care about sunset
+     */
     @Override
     public void sunset() {
         //do nothing

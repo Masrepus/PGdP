@@ -3,7 +3,7 @@ package com.samuel.pgdp.game;
 /**
  * Generic version of {@link com.samuel.pgdp.blatt7.HeadList}
  *
- * @param <T>
+ * @param <T> the type of this list's elements
  */
 public class List<T> {
 
@@ -112,6 +112,13 @@ public class List<T> {
         return null;
     }
 
+    /**
+     * Find the position of a specific element in the list
+     *
+     * @param element the element to be found
+     * @return the position of the element in the list, if found.
+     * -1 if it hasn't been found
+     */
     public int find(T element) {
         if (element == null) return -1;
 
@@ -128,6 +135,10 @@ public class List<T> {
         return -1;
     }
 
+    /**
+     * Creates an exact, independent copy of this list
+     * @return a copy of this list
+     */
     public List<T> duplicate() {
         List<T> tmp = new List<>();
 
@@ -167,6 +178,9 @@ public class List<T> {
         return out;
     }
 
+    /**
+     * Custom class that holds list data
+     */
     class Entry {
 
         Entry first;

@@ -15,6 +15,10 @@ public class Penguin extends Predator {
         daysRemaining = 12;
     }
 
+    /**
+     * {@inheritDoc}
+     * default for Penguin: 12
+     */
     @Override
     protected void resetDaysRemaining() {
         daysRemaining = 12;
@@ -27,11 +31,17 @@ public class Penguin extends Predator {
           : (Globals.darkSquare(this.square) ? Globals.ts_male_penguin_dark : Globals.ts_male_penguin_light);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Move[] possibleMoves() {
         return super.possibleMoves();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected List<Move> getRawPossibleMoves() {
         //possible moves: one field in either direction
@@ -55,6 +65,9 @@ public class Penguin extends Predator {
         return removeOffScreenMoves(tmp);
     }
 
+    /**
+     * @return always true because a penguin has no intermediate fields
+     */
     @Override
     protected boolean checkIntermediateFields(List<Move> possibleMoves, Move move) {
         //a penguin has no intermediate fields

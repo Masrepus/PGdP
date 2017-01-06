@@ -183,6 +183,11 @@ public class Game {
         } else return false;
     }
 
+    /**
+     * Getter method for {@link #currentMoves}, where the moves are being stored that have already been entered for this round
+     *
+     * @return {@link #currentMoves}
+     */
     public List<Move> getCurrentMoves() {
         return currentMoves;
     }

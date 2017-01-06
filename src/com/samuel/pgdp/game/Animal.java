@@ -76,15 +76,28 @@ public class Animal {
         throw new RuntimeException("Method sunset should have been overridden");
     }
 
+    /**
+     * Wrapper method for {@link Position#kill(String)} that also sets {@link #alive} to false. This would not be necessary as the Animal object is being removed but it is required by the game's specifications
+     */
     public void kill() {
         alive = false;
         position.kill(square);
     }
 
+    /**
+     * Get a String representation of this animal's gender
+     *
+     * @return "female" if the animal is female, "male" otherwise
+     */
     public String getGender() {
         return female ? "female" : "male";
     }
 
+    /**
+     * Checks whether this animal can legally move to a given destination. The caller has to check whether the current player is allowed to move this animal.
+     * @param destination the desired destination
+     * @return true if the move is legal, false otherwise
+     */
     public boolean isMoveLegal(String destination) {
         //check if there is another animal at our destination
         Animal targetAnimal = position.getAnimal(destination);
@@ -115,6 +128,12 @@ public class Animal {
         return false;
     }
 
+    /**
+     * Checks if the animal can reach the desired destination without any other animals in its way
+     * @param possibleMoves A list of possible moves for this animal, e.g. as it can be obtained by {@link #getRawPossibleMoves()}. Contained moves have to be ordered by numbered move sequences (a move sequence means all moves in the same path)
+     * @param move the move that has to be evaluated for empty intermediate fields
+     * @return true if the path to move.getTo() is empty
+     */
     protected boolean checkIntermediateFields(List<Move> possibleMoves, Move move) {
         //we have to work on a copy of this list because we will remove items
         List<Move> intermediates = possibleMoves.duplicate();
@@ -155,6 +174,10 @@ public class Animal {
         return new List<>();
     }
 
+    /**
+     * Prints a graphical representation of all possible moves for this animal. Moves are displayed in the same way as the board. The animal's current position is marked by an X, possible destinations differently, see the description for sequenceNumbers
+     * @param sequenceNumbers if true, possible destinations are displayed by the number of their move sequence, otherwise they are displayed as checkmarks (✓)
+     */
     public void printPossibleMoves(boolean sequenceNumbers) {
         Move[] moves = possibleMoves();
 
@@ -181,12 +204,25 @@ public class Animal {
         System.out.println("   a b c d e f g h");
     }
 
+    /**
+     * Adds a given move to a list of moves
+     * @param moves the list the move should be added to
+     * @param columnOffset the offset to {@link #square} in columns
+     * @param rowOffset the offset to {@link #square} in rows
+     */
     protected void addMove(List<Move> moves, int columnOffset, int rowOffset) {
         char column = square.charAt(0);
         char row = square.charAt(1);
         moves.add(new Move("" + column + row, "" + (char) (column + columnOffset) + (char) (row + rowOffset)));
     }
 
+    /**
+     * Works in the same way as {@link #addMove(List, int, int)}, but also sets the new move's moveSequence
+     * @param moves see {@link #addMove(List, int, int)}
+     * @param columnOffset see {@link #addMove(List, int, int)}
+     * @param rowOffset see {@link #addMove(List, int, int)}
+     * @param moveSequence the new move's moveSequence
+     */
     protected void addMove(List<Move> moves, int columnOffset, int rowOffset, int moveSequence) {
         char column = square.charAt(0);
         char row = square.charAt(1);
@@ -195,6 +231,11 @@ public class Animal {
         moves.add(move);
     }
 
+    /**
+     * Removes moves from a given list of moves whose destinations would not be on the board anymore
+     * @param tmp the list of moves to be cleaned up
+     * @return tmp without offscreen moves
+     */
     protected List<Move> removeOffScreenMoves(List<Move> tmp) {
         //now eliminate all moves whose destinations are not on the board
         List<Move> moves = new List<>();
@@ -208,6 +249,11 @@ public class Animal {
         return moves;
     }
 
+    /**
+     * Same as {@link #removeOffScreenMoves(List)} but if it detects an offscreen move, all moves that belong to the same move sequence are deleted, too. This is especially important for {@link Snake}
+     * @param tmp the list of moves to be cleaned up
+     * @return tmp without move sequences that contain offscreen moves
+     */
     protected List<Move> removeOffScreenMoveSequences(List<Move> tmp) {
         //now eliminate all moves whose destinations are not on the board
         List<Move> moves = new List<>();

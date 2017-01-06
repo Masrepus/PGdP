@@ -16,11 +16,18 @@ public class Leopard extends Predator {
         daysRemaining = 5;
     }
 
+    /**
+     * {@inheritDoc}
+     * default for Leopard: 5
+     */
     @Override
     protected void resetDaysRemaining() {
         daysRemaining = 5;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Move[] possibleMoves() {
         return super.possibleMoves();
@@ -33,6 +40,9 @@ public class Leopard extends Predator {
                 : (Globals.darkSquare(this.square) ? Globals.ts_male_leopard_dark : Globals.ts_male_leopard_light);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected List<Move> getRawPossibleMoves() {
         List<Move> moves = new List<>();

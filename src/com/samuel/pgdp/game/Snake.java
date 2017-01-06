@@ -16,6 +16,10 @@ public class Snake extends Predator {
         daysRemaining = 9;
     }
 
+    /**
+     * {@inheritDoc}
+     * default for snake: 9
+     */
     @Override
     protected void resetDaysRemaining() {
         daysRemaining = 9;
@@ -28,11 +32,17 @@ public class Snake extends Predator {
           : (Globals.darkSquare(this.square) ? Globals.ts_male_snake_dark : Globals.ts_male_snake_light);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Move[] possibleMoves() {
         return super.possibleMoves();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected List<Move> getRawPossibleMoves() {
         List<Move> moves = new List<>();

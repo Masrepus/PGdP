@@ -18,11 +18,17 @@ public class Rabbit extends Vegetarian {
           : (Globals.darkSquare(this.square) ? Globals.ts_male_rabbit_dark : Globals.ts_male_rabbit_light);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Move[] possibleMoves() {
         return super.possibleMoves();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected List<Move> getRawPossibleMoves() {
         //possible moves: one field in either direction
@@ -46,6 +52,9 @@ public class Rabbit extends Vegetarian {
         return removeOffScreenMoves(tmp);
     }
 
+    /**
+     * @return always true because a rabbit has no intermediate fields
+     */
     @Override
     protected boolean checkIntermediateFields(List<Move> possibleMoves, Move move) {
         //a rabbit has no intermediate fields

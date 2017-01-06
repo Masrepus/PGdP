@@ -16,6 +16,11 @@ public class Main {
         game.startGame(ladiesFirst());
     }
 
+    /**
+     * Asks which player begins, either W or M. Not case sensitive
+     *
+     * @return true if W begins, false otherwise
+     */
     private static boolean ladiesFirst() {
         //ask who should begin
         String beginner = IO.readString("Which player should begin? Type w or m\n");

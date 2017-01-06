@@ -192,6 +192,11 @@ public class Position {
         if (next == startingPlayer) doSunset();
     }
 
+    /**
+     * Executes the moves it gets passed without further testing of their legality. This method also sets {@link #next} correctly after having applied the moves. But it does NOT invoke sunset or print any game information. So the game cannot be played only by invoking this method. If you would like to do this, use {@link #applyMoves(Move[])} instead.
+     *
+     * @param moves an array of moves, preferrably with no empty places, but this method can handle this, too
+     */
     public void executeMoves(Move[] moves) {
         for (Move move : moves) {
             if (move == null) continue;
@@ -361,6 +366,9 @@ public class Position {
         return next;
     }
 
+    /**
+     * Prints all possible moves for all animals that belong to the current player. So {@link Animal#printPossibleMoves(boolean)} is being invoked for all animals in {@link #myAnimals}
+     */
     public void printPossibleMoves() {
         System.out.println("Here are all possible moves for your animals. The animal's current position is marked with an X, possible destinations have a checkmark (✓)");
         String gender = next == 'W' ? "female" : "male";

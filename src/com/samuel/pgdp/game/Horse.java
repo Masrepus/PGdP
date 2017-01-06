@@ -18,17 +18,28 @@ public class Horse extends Vegetarian {
           : (Globals.darkSquare(this.square) ? Globals.ts_male_horse_dark : Globals.ts_male_horse_light);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Move[] possibleMoves() {
         return super.possibleMoves();
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return always true because a horse has no intermediate fields
+     */
     @Override
     protected boolean checkIntermediateFields(List<Move> possibleMoves, Move move) {
         //a horse has no intermediate fields
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected List<Move> getRawPossibleMoves() {
         List<Move> moves = new List<>();

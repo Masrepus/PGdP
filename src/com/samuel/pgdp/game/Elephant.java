@@ -10,6 +10,9 @@ public class Elephant extends Vegetarian {
         super(female);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Move[] possibleMoves() {
         return super.possibleMoves();
@@ -22,6 +25,9 @@ public class Elephant extends Vegetarian {
           : (Globals.darkSquare(this.square) ? Globals.ts_male_elephant_dark : Globals.ts_male_elephant_light);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected List<Move> getRawPossibleMoves() {
         List<Move> moves = new List<>();
