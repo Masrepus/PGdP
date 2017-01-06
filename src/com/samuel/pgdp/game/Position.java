@@ -348,4 +348,22 @@ public class Position {
     public char getNext() {
         return next;
     }
+
+    public void printPossibleMoves() {
+        System.out.println("Here are all possible moves for your animals. The animal's current position is marked with an X, possible destinations have a checkmark (✓)");
+        String gender = next == 'W' ? "female" : "male";
+        //print the possible moves for all animals of this gender
+        for (Animal animal : myAnimals) {
+            if (animal.getGender().equals(gender)) {
+                System.out.println("\n" + animal.square + ":");
+
+                //first print the written form, then the graphical representation
+                Move[] moves = animal.possibleMoves();
+                for (Move move : moves) System.out.print(move + " ");
+                System.out.println();
+
+                animal.printPossibleMoves(false);
+            }
+        }
+    }
 }

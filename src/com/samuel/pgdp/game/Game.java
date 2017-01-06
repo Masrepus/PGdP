@@ -69,10 +69,18 @@ public class Game {
             String move;
 
             //ask which move we should do
-            move = IO.readString("\nPlease choose your next move (format: XYAB where X = start square column, Y = start square row, A = destination square column, B = destination square row. Example: a2a3) or type x to stop adding moves\n");
+            move = IO.readString("\nPlease choose your next move (format: XYAB where X = start square column, Y = start square row, A = destination square column, B = destination square row. Example: a2a3) or type x to stop adding moves\n" +
+                    "Typing the word 'moves' (without inverted commas) shows a list of all possible moves\n");
             while (!formatIsLegal(move)) {
                 System.out.println("The format of " + move + " is not legal!");
-                move = IO.readString("\nPlease choose your next move (format: XYAB where X = start square column, Y = start square row, A = destination square column, B = destination square row. Example: a2a3) or type x to stop adding moves\n");
+                move = IO.readString("\nPlease choose your next move (format: XYAB where X = start square column, Y = start square row, A = destination square column, B = destination square row. Example: a2a3) or type x to stop adding moves\n" +
+                        "Typing the word 'moves' (without inverted commas) shows a list of all possible moves\n");
+            }
+
+            //check if the player wants to get a list of possible moves
+            if (move.equals("moves")) {
+                pos.printPossibleMoves();
+                continue;
             }
 
             //check if the player doesn't want to add any more moves
@@ -135,6 +143,7 @@ public class Game {
     public static boolean formatIsLegal(String move) {
         //check if the input string's format is correct
         if (move.equals("x") || move.equals("X")) return true;
+        else if (move.equals("moves")) return true;
         else
             return move.length() == 4 && isColumn(move.charAt(0)) && isRow(move.charAt(1)) && isColumn(move.charAt(2)) && isRow(move.charAt(3));
     }

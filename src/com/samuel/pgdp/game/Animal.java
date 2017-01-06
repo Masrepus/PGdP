@@ -147,7 +147,7 @@ public class Animal {
         return new List<>();
     }
 
-    public void printPossibleMoves() {
+    public void printPossibleMoves(boolean sequenceNumbers) {
         Move[] moves = possibleMoves();
 
         System.out.println("   a b c d e f g h");
@@ -157,7 +157,8 @@ public class Animal {
                 boolean used = false;
                 for (int i = 0; i < moves.length; i++) {
                     if (moves[i].getTo().equals("" + c + r)) {
-                        System.out.print(" " + moves[i].getMoveSequence());
+                        if (sequenceNumbers) System.out.print(" " + moves[i].getMoveSequence());
+                        else System.out.print(" ✓");
                         used = true;
                         break;
                     }
