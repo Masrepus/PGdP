@@ -7,7 +7,7 @@ package com.samuel.pgdp.game;
  */
 public class List<T> {
 
-    Entry head;
+    private Entry head;
 
     /**
      * constructor empty HeadList

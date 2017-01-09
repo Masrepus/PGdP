@@ -18,7 +18,7 @@ public class Position {
      * muss jedoch die selbe Rueckgabe liefern. D.h. es ist dann notwendig,
      * die Hilfsmethode boardRepresentation auf die verwendete Datenstruktur anzupassen.
      */
-    public Animal[] myAnimals;
+    private Animal[] myAnimals;
     private int nrAnimals;
     public static final String backRow = "sehllhes";
     public static final String frontRow = "pkkkkkkp";
