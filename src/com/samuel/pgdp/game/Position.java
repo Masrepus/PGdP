@@ -187,6 +187,7 @@ public class Position {
         //print the game infos
         System.out.println(this);
         printDaysRemaining();
+        System.out.println();
 
         //check if we have to invoke sunset
         if (next == startingPlayer) doSunset();

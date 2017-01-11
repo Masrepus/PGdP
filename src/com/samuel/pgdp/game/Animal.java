@@ -104,9 +104,11 @@ public class Animal {
 
         //check if another animal has already chosen the same destination or has the same starting point (one animal can't move twice in one round
         List<Move> currentMoves = position.getGame().getCurrentMoves();
-        for (int i = 0; i < currentMoves.length(); i++) {
-            if (currentMoves.get(i).getTo().equals(destination)) return false;
-            if (currentMoves.get(i).getFrom().equals(square)) return false;
+        if (currentMoves != null) {
+            for (int i = 0; i < currentMoves.length(); i++) {
+                if (currentMoves.get(i).getTo().equals(destination)) return false;
+                if (currentMoves.get(i).getFrom().equals(square)) return false;
+            }
         }
 
         if (targetAnimal != null) {
