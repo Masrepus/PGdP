@@ -20,8 +20,8 @@ public class Position {
      */
     private Animal[] myAnimals;
     private int nrAnimals;
-    public static final String backRow = "sehllhes";
-    public static final String frontRow = "pkkkkkkp";
+    public static final String backRow = "p";
+    public static final String frontRow = "k";
 
     /**
      * Spieler, der als naechstes ziehen darf ('M' oder 'W').

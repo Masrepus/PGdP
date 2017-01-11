@@ -40,6 +40,9 @@ public class Game {
             System.out.println();
             nextMove();
 
+            //maybe it's already game-over, check this and end the game if so
+            if (gameOver()) break;
+
             //it's the next player's turn
             //first print the board and animal infos
             System.out.println(pos);
