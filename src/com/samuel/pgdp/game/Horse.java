@@ -1,6 +1,6 @@
 package com.samuel.pgdp.game;
 
-import com.samuel.pgdp.MutableList;
+import com.samuel.pgdp.List;
 
 public class Horse extends Vegetarian {
 
@@ -34,7 +34,7 @@ public class Horse extends Vegetarian {
      * @return always true because a horse has no intermediate fields
      */
     @Override
-    protected boolean checkIntermediateFields(MutableList<Move> possibleMoves, Move move) {
+    protected boolean checkIntermediateFields(List<Move> possibleMoves, Move move) {
         //a horse has no intermediate fields
         return true;
     }
@@ -43,8 +43,8 @@ public class Horse extends Vegetarian {
      * {@inheritDoc}
      */
     @Override
-    protected MutableList<Move> getRawPossibleMoves() {
-        MutableList<Move> moves = new MutableList<>();
+    protected List<Move> getRawPossibleMoves() {
+        List<Move> moves = new List<>();
 
         //one up, down, right and left
         addMove(moves, 0, 1);

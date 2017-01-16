@@ -1,6 +1,6 @@
 package com.samuel.pgdp.game;
 
-import com.samuel.pgdp.MutableList;
+import com.samuel.pgdp.List;
 
 public class Rabbit extends Vegetarian {
 
@@ -32,9 +32,9 @@ public class Rabbit extends Vegetarian {
      * {@inheritDoc}
      */
     @Override
-    protected MutableList<Move> getRawPossibleMoves() {
+    protected List<Move> getRawPossibleMoves() {
         //possible moves: one field in either direction
-        MutableList<Move> tmp = new MutableList<>();
+        List<Move> tmp = new List<>();
         char column = square.charAt(0);
         char row = square.charAt(1);
 
@@ -58,7 +58,7 @@ public class Rabbit extends Vegetarian {
      * @return always true because a rabbit has no intermediate fields
      */
     @Override
-    protected boolean checkIntermediateFields(MutableList<Move> possibleMoves, Move move) {
+    protected boolean checkIntermediateFields(List<Move> possibleMoves, Move move) {
         //a rabbit has no intermediate fields
         return true;
     }

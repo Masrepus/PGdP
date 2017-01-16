@@ -1,6 +1,6 @@
 package com.samuel.pgdp.game;
 
-import com.samuel.pgdp.MutableList;
+import com.samuel.pgdp.List;
 
 /**
  * Oberklasse fuer Tiere.
@@ -44,10 +44,10 @@ public class Animal {
      */
     public Move[] possibleMoves(){
         //first get the moves the animal can do (without taking into account any animals in its way etc)
-        MutableList<Move> rawMoves = getRawPossibleMoves();
+        List<Move> rawMoves = getRawPossibleMoves();
 
         //now check which of these moves are legal
-        MutableList<Move> legalMoves = new MutableList<>();
+        List<Move> legalMoves = new List<>();
         Move curr;
         for (int i = 0; i < rawMoves.length(); i++) {
             curr = rawMoves.get(i);
@@ -105,7 +105,7 @@ public class Animal {
         Animal targetAnimal = position.getAnimal(destination);
 
         //check if another animal has already chosen the same destination or has the same starting point (one animal can't move twice in one round
-        MutableList<Move> currentMoves = position.getGame().getCurrentMoves();
+        List<Move> currentMoves = position.getGame().getCurrentMoves();
         if (currentMoves != null) {
             for (int i = 0; i < currentMoves.length(); i++) {
                 if (currentMoves.get(i).getTo().equals(destination)) return false;
@@ -121,7 +121,7 @@ public class Animal {
 
         //destination field is either clear or we can eat the target
         //now check whether this animal can actually reach this square
-        MutableList<Move> possibleMoves = getRawPossibleMoves();
+        List<Move> possibleMoves = getRawPossibleMoves();
         for (int i = 0; i < possibleMoves.length(); i++) {
             //if we can reach this square, check if the path is free of animals
             if (possibleMoves.get(i).getTo().equals(destination))
@@ -138,9 +138,9 @@ public class Animal {
      * @param move the move that has to be evaluated for empty intermediate fields
      * @return true if the path to move.getTo() is empty
      */
-    protected boolean checkIntermediateFields(MutableList<Move> possibleMoves, Move move) {
+    protected boolean checkIntermediateFields(List<Move> possibleMoves, Move move) {
         //we have to work on a copy of this list because we will remove items
-        MutableList<Move> intermediates = possibleMoves.duplicate();
+        List<Move> intermediates = possibleMoves.duplicate();
 
         //first find out which move sequence we have to check
         int moveSequence = move.getMoveSequence();
@@ -173,9 +173,9 @@ public class Animal {
      *
      * @return a {@link List} of moves that are possible for this animal
      */
-    protected MutableList<Move> getRawPossibleMoves() {
+    protected List<Move> getRawPossibleMoves() {
         //has to be overridden by child classes
-        return new MutableList<>();
+        return new List<>();
     }
 
     /**
@@ -214,7 +214,7 @@ public class Animal {
      * @param columnOffset the offset to {@link #square} in columns
      * @param rowOffset the offset to {@link #square} in rows
      */
-    protected void addMove(MutableList<Move> moves, int columnOffset, int rowOffset) {
+    protected void addMove(List<Move> moves, int columnOffset, int rowOffset) {
         char column = square.charAt(0);
         char row = square.charAt(1);
         moves.add(new Move("" + column + row, "" + (char) (column + columnOffset) + (char) (row + rowOffset)));
@@ -227,7 +227,7 @@ public class Animal {
      * @param rowOffset see {@link #addMove(List, int, int)}
      * @param moveSequence the new move's moveSequence
      */
-    protected void addMove(MutableList<Move> moves, int columnOffset, int rowOffset, int moveSequence) {
+    protected void addMove(List<Move> moves, int columnOffset, int rowOffset, int moveSequence) {
         char column = square.charAt(0);
         char row = square.charAt(1);
         Move move = new Move("" + column + row, "" + (char) (column + columnOffset) + (char) (row + rowOffset));
@@ -240,9 +240,9 @@ public class Animal {
      * @param tmp the list of moves to be cleaned up
      * @return tmp without offscreen moves
      */
-    protected MutableList<Move> removeOffScreenMoves(MutableList<Move> tmp) {
+    protected List<Move> removeOffScreenMoves(List<Move> tmp) {
         //now eliminate all moves whose destinations are not on the board
-        MutableList<Move> moves = new MutableList<>();
+        List<Move> moves = new List<>();
         for (int i = 0; i < tmp.length(); i++) {
             Move move = tmp.get(i);
             char column = move.getTo().charAt(0);
@@ -258,12 +258,12 @@ public class Animal {
      * @param tmp the list of moves to be cleaned up
      * @return tmp without move sequences that contain offscreen moves
      */
-    protected MutableList<Move> removeOffScreenMoveSequences(MutableList<Move> tmp) {
+    protected List<Move> removeOffScreenMoveSequences(List<Move> tmp) {
         //now eliminate all moves whose destinations are not on the board
-        MutableList<Move> moves = new MutableList<>();
+        List<Move> moves = new List<>();
 
         //if offscreen moves are found, remove all moves of the same sequence coming afterwards
-        MutableList<Integer> offScreenSequences = new MutableList<>();
+        List<Integer> offScreenSequences = new List<>();
         for (int i = 0; i < tmp.length(); i++) {
             Move move = tmp.get(i);
 

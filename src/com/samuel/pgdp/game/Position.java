@@ -1,6 +1,6 @@
 package com.samuel.pgdp.game;
 
-import com.samuel.pgdp.MutableList;
+import com.samuel.pgdp.List;
 
 /**
  * Die Klasse Position repraesentiert eine Spielsituation.
@@ -131,7 +131,7 @@ public class Position {
      */
     public void applyMoves(Move[] moves) {
         int vegRemaining = 3, predRemaining = 1;
-        MutableList<Move> toExecute = new MutableList<>();
+        List<Move> toExecute = new List<>();
 
         for (Move move : moves) {
             if (move == null) continue;

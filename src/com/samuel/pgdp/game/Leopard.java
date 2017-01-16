@@ -1,6 +1,6 @@
 package com.samuel.pgdp.game;
 
-import com.samuel.pgdp.MutableList;
+import com.samuel.pgdp.List;
 
 public class Leopard extends Predator {
 
@@ -46,8 +46,8 @@ public class Leopard extends Predator {
      * {@inheritDoc}
      */
     @Override
-    protected MutableList<Move> getRawPossibleMoves() {
-        MutableList<Move> moves = new MutableList<>();
+    protected List<Move> getRawPossibleMoves() {
+        List<Move> moves = new List<>();
         char column = square.charAt(0);
         char row = square.charAt(1);
 
