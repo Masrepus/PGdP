@@ -1,4 +1,4 @@
-package com.samuel.pgdp.game;
+package com.samuel.pgdp;
 
 /**
  * Generic version of {@link com.samuel.pgdp.blatt7.HeadList}

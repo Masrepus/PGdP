@@ -1,5 +1,7 @@
 package com.samuel.pgdp.game;
 
+import com.samuel.pgdp.List;
+
 public class Snake extends Predator {
 
     // Eine Schlange kann 9 Tage bzw. Spielrunden ohne Essen auskommen.

@@ -1,5 +1,7 @@
 package com.samuel.pgdp.game;
 
+import com.samuel.pgdp.List;
+
 public class Horse extends Vegetarian {
 
     /**

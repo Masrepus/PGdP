@@ -1,5 +1,7 @@
 package com.samuel.pgdp.game;
 
+import com.samuel.pgdp.List;
+
 public class Leopard extends Predator {
 
     // Ein Leopard kann nur 5 Tage bzw. Spielrunden ohne Essen auskommen.

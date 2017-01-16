@@ -1,5 +1,7 @@
 package com.samuel.pgdp.game;
 
+import com.samuel.pgdp.List;
+
 public class Penguin extends Predator {
 
     // Ein Pinguin kann 12 Tage bzw. Spielrunden ohne Essen auskommen.
