@@ -1,19 +1,38 @@
 package com.samuel.pgdp;
 
 /**
- * Generic version of {@link com.samuel.pgdp.blatt7.HeadList}
+ * Generic, immutable version of {@link com.samuel.pgdp.blatt7.HeadList}
  *
  * @param <T> the type of this list's elements
  */
 public class List<T> {
 
-    private Entry head;
+    private final Entry head;
+    private final List<T> rest;
+
+    public static void main(String[] args) {
+        List<String> list = new List<>();
+        list = list.add("a");
+        System.out.println(list);
+        list = list.add("b");
+        System.out.println(list);
+        list = list.add("c");
+        System.out.println(list);
+        list = list.remove(list.find("b"));
+        System.out.println(list);
+    }
 
     /**
      * constructor empty HeadList
      */
     public List() {
         head = null;
+        rest = null;
+    }
+
+    public List(Entry head, List<T> rest) {
+        this.head = head;
+        this.rest = rest;
     }
 
     /**
@@ -21,24 +40,9 @@ public class List<T> {
      *
      * @param data value of the new element
      */
-    public void add(T data) {
-        //iterate through all our entries until we find the end
-        Entry curr = head;
-
-        //if head is null do it separately
-        if (head == null) {
-            head = new Entry(null, null, data);
-            //now set the entry as real head
-            head.first = head;
-
-        } else {
-            while (curr.next != null) {
-                curr = curr.next;
-            }
-
-            //we found the end, add our new item
-            curr.next = new Entry(head, null, data);
-        }
+    public List<T> add(T data) {
+        //prepend this item to the current list
+        return new List<>(new Entry(data), this);
     }
 
     /**
@@ -47,42 +51,38 @@ public class List<T> {
      * @return the list's length
      */
     public int length() {
-        int i = 0;
-        Entry curr = head;
+        return getLength(0);
+    }
 
-        while (curr != null) {
-            i++;
-            curr = curr.next;
+    private int getLength(int i) {
+        //iterate through all appended lists until we find the end
+        if (head == null || rest == null) return i;
+        else {
+            return rest.getLength(i+1);
         }
+    }
 
-        return i;
+    public List<T> remove(int id) {
+        //check if negative
+        if (id < 0) return null;
+        return flip(remove(new List<>(), id, 0));
     }
 
     /**
      * Removes  the element at position index from this list.
      *
-     * @param index position of the element that is removed
+     * @param targetId position of the element that is removed
      */
-    public void remove(int index) {
-        //check if negative
-        if (index < 0) return;
-
+    public List<T> remove(List<T> leftRest, int targetId, int currId) {
         //now iterate through our list and see if we can find the index
-        Entry curr = head, previous = null;
-        int id = 0;
-        while (curr != null) {
-            if (id == index) {
-                //now remove it: set previous' next to the next element
-                //if this is head, update head
-                if (id == 0) {
-                    setHead(curr.next);
-                    head = curr.next;
-                }
-                if (previous != null) previous.next = curr.next;
-            }
-            id++;
-            previous = curr;
-            curr = curr.next;
+        if (targetId == currId) {
+            //this is the element, don't add it
+            if (rest != null) return rest.remove(leftRest, targetId, currId+1);
+            else return leftRest;
+
+        } else {
+            if (rest != null) return rest.remove(leftRest.add((head == null ? null : head.elem)), targetId, currId+1);
+            else return leftRest;
         }
     }
 
@@ -96,20 +96,12 @@ public class List<T> {
     public T get(int index) {
         //check if negative
         if (index < 0) return null;
+        else return get(index, 0);
+    }
 
-        //now iterate through our list and see if we can find the index
-        Entry curr = head;
-        int id = 0;
-        while (curr != null) {
-            if (id == index) {
-                return curr.elem;
-            }
-            id++;
-            curr = curr.next;
-        }
-
-        //we didn't reach index
-        return null;
+    public T get(int targetId, int currId) {
+        if (targetId == currId) return head.elem;
+        else return rest.get(targetId, currId+1);
     }
 
     /**
@@ -123,16 +115,16 @@ public class List<T> {
         if (element == null) return -1;
 
         //iterate through the list and see if we find this element
-        Entry curr = head;
-        int id = 0;
-        while (curr != null) {
-            if (curr.elem.equals(element)) return id;
-            id++;
-            curr = curr.next;
-        }
+        return find(element, 0);
+    }
 
-        //didn't find the element
-        return -1;
+    public int find(T element, int currId) {
+        if (head == null) return -1;
+        if (element.equals(head.elem)) return currId;
+        else {
+            if (rest != null) return rest.find(element, currId+1);
+            else return -1;
+        }
     }
 
     /**
@@ -143,39 +135,31 @@ public class List<T> {
         List<T> tmp = new List<>();
 
         for (int i = 0; i < length(); i++) {
-            tmp.add(get(i));
+            tmp = tmp.add(get(i));
         }
 
         return tmp;
     }
 
-    /**
-     * sets the head of each list element to newHead
-     *
-     * @param newHead reference to the new head
-     */
-    private void setHead(Entry newHead) {
-        //iterate through all entries and update head
-        Entry curr = head;
-        while (curr != null) {
-            curr.first = newHead;
-            curr = curr.next;
+    public List<T> flip(List<T> toFlip) {
+        List<T> tmp = new List<>();
+
+        for (int i = 0; i < toFlip.length(); i++) {
+            tmp = tmp.add(toFlip.get(i));
         }
+
+        return tmp;
     }
 
     @Override
     public String toString() {
-        String out = "[";
         if (head != null) {
-            out += head.elem;
-            Entry tmp = head.next;
-            while (tmp != null) {
-                out = out + "," + tmp.elem;
-                tmp = tmp.next;
-            }
+            String out = head.elem.toString();
+            if (rest != null) return out + rest;
+            else return out;
         }
-        out += "]";
-        return out;
+
+        return "";
     }
 
     /**
@@ -183,16 +167,30 @@ public class List<T> {
      */
     class Entry {
 
-        Entry first;
-        Entry next;
-        T elem;
+        final T elem;
 
-        public Entry(Entry first, Entry next, T elem) {
-            this.first = first;
-            this.next = next;
+        public Entry(T elem) {
             this.elem = elem;
         }
 
+        @Override
+        public String toString() {
+            return elem.toString();
+        }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        //frst check the type
+        if (!(obj instanceof List)) return false;
+
+        //types match, check the entries
+        for (int i = 0; i < length(); i++) {
+            if (!(((List)obj).get(i).equals(get(i)))) return false;
+        }
+
+        //elements match
+        return true;
     }
 }
  

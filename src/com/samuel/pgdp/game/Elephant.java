@@ -1,6 +1,6 @@
 package com.samuel.pgdp.game;
 
-import com.samuel.pgdp.List;
+import com.samuel.pgdp.MutableList;
 
 public class Elephant extends Vegetarian {
 
@@ -31,8 +31,8 @@ public class Elephant extends Vegetarian {
      * {@inheritDoc}
      */
     @Override
-    protected List<Move> getRawPossibleMoves() {
-        List<Move> moves = new List<>();
+    protected MutableList<Move> getRawPossibleMoves() {
+        MutableList<Move> moves = new MutableList<>();
         char column = square.charAt(0);
         char row = square.charAt(1);
         int moveSequence = 0;

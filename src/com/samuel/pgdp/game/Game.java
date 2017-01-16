@@ -1,6 +1,6 @@
 package com.samuel.pgdp.game;
 
-import com.samuel.pgdp.List;
+import com.samuel.pgdp.MutableList;
 
 /**
  * Die Klasse Game fuehrt die Benutzerinteraktion durch.
@@ -9,7 +9,7 @@ import com.samuel.pgdp.List;
 public class Game {
 
     private Position pos;
-    private List<Move> currentMoves;
+    private MutableList<Move> currentMoves;
 
 
     /**
@@ -63,7 +63,7 @@ public class Game {
      * Handles one player's moves: You can do up to 4 moves per round, but not more than 3 vegetarians and 1 predator. Handles input format correctness and semantical legality regarding the animal to move and the desired target square. If the player has submitted 4 correct moves or aborted the adding process, the chosen moves are passed on to {@link Position#executeMoves(Move[])}
      */
     private void nextMove() {
-        currentMoves = new List<>();
+        currentMoves = new MutableList<>();
         int i = 0;
         int vegRemaining, predRemaining;
         //3 vegetarians and 1 predator can be moved in one round
@@ -200,7 +200,7 @@ public class Game {
      *
      * @return {@link #currentMoves}
      */
-    public List<Move> getCurrentMoves() {
+    public MutableList<Move> getCurrentMoves() {
         return currentMoves;
     }
 }
