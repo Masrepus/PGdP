@@ -10,18 +10,6 @@ public class List<T> {
     private final Entry head;
     private final List<T> rest;
 
-    public static void main(String[] args) {
-        List<String> list = new List<>();
-        list = list.add("a");
-        System.out.println(list);
-        list = list.add("b");
-        System.out.println(list);
-        list = list.add("c");
-        System.out.println(list);
-        list = list.remove(list.find("b"));
-        System.out.println(list);
-    }
-
     /**
      * constructor empty HeadList
      */
