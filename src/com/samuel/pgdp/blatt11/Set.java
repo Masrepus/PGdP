@@ -1,20 +1,13 @@
 package com.samuel.pgdp.blatt11;
 
+import java.util.Iterator;
+
 /**
  * Created by Samuel on 16.01.2017.
  */
-public class Set<T> {
+public class Set<T> implements Iterable<T> {
 
     private final List<T> list;
-
-    public static void main(String[] args) {
-        Set<String> set = new Set<>();
-        System.out.println(set);
-        set = set.add("a");
-        System.out.println(set);
-        set = set.add("b");
-        System.out.println(set);
-    }
 
     public Set() {
         list = new List<>();
@@ -24,6 +17,24 @@ public class Set<T> {
         this.list = list;
     }
 
+    public static void main(String[] args) {
+        Set<String> set = new Set<>();
+        System.out.println(set);
+        set = set.add("a");
+        System.out.println(set);
+        set = set.add("b");
+        System.out.println(set);
+        set = set.add("c");
+        System.out.println(set);
+        set = set.add("d");
+        System.out.println(set);
+        System.out.println("Iterator:");
+
+        for (String s : set) {
+            System.out.println(s);
+        }
+    }
+
     public Set<T> add(T e) {
         if (e == null) throw new NullPointerException();
 
@@ -31,7 +42,7 @@ public class Set<T> {
         if (contains(e)) return this;
 
         //this set must not be changed!
-        return new Set<T>(list.add(e));
+        return new Set<>(list.add(e));
     }
 
     public Set<T> remove(T e) {
@@ -65,11 +76,11 @@ public class Set<T> {
         if (!(obj instanceof Set)) return false;
         else {
             //check sizes
-            if (size() != ((Set)obj).size()) return false;
+            if (size() != ((Set) obj).size()) return false;
 
             //cycle through our list and check if the other one has all our entries
             for (int i = 0; i < size(); i++) {
-                if (!list.get(i).equals(((Set)obj).get(i))) return false;
+                if (!list.get(i).equals(((Set) obj).get(i))) return false;
             }
 
             //seems like our set is equal to obj
@@ -83,9 +94,37 @@ public class Set<T> {
         String out = "{";
         for (int i = 0; i < size(); i++) {
             out += tmp.get(i);
-            if (i != size()-1) out += ",";
+            if (i != size() - 1) out += ",";
         }
 
         return out + "}";
+    }
+
+    /**
+     * @return a new {@link SetIterator} that goes through {@link #list} (backwards, because {@link List} stores items starting from the end to the start) and returns the corresponding items
+     */
+    @Override
+    public Iterator<T> iterator() {
+        return new SetIterator(list.length() - 1);
+    }
+
+    private class SetIterator implements Iterator<T> {
+
+        private int end;
+
+        public SetIterator(int end) {
+            this.end = end;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return end >= 0;
+        }
+
+        @Override
+        public T next() {
+            end--;
+            return list.get(end + 1);
+        }
     }
 }
