@@ -45,18 +45,29 @@ public class Set<T> implements Iterable<T> {
         return new Set<>(list.add(e));
     }
 
-    public Set<T> remove(T e) {
-        //first check if we actually have this item
-        int id = list.find(e);
+    public Set<T> remove(Object e) {
+        if (e == null) throw new NullPointerException();
 
-        if (id == -1) return this;
+        //first check if we actually have this item, maybe the object is not of type T, catch this
+        try {
+            int id = list.find((T) e);
 
-        //this object must not be changed!
-        return new Set<>(list.remove(id));
+            if (id == -1) return this;
+
+            //this object must not be changed!
+            return new Set<>(list.remove(id));
+        } catch (ClassCastException exception) {
+            return this;
+        }
     }
 
-    public boolean contains(T e) {
-        return list.find(e) != -1;
+    public boolean contains(Object e) {
+        try {
+            return list.find((T) e) != -1;
+        } catch (ClassCastException exception) {
+            //wrong type
+            return false;
+        }
     }
 
     public int size() {
@@ -80,7 +91,7 @@ public class Set<T> implements Iterable<T> {
 
             //cycle through our list and check if the other one has all our entries
             for (int i = 0; i < size(); i++) {
-                if (!list.get(i).equals(((Set) obj).get(i))) return false;
+                if (!((Set) obj).contains(get(i))) return false;
             }
 
             //seems like our set is equal to obj
