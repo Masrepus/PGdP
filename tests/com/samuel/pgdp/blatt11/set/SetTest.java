@@ -1,4 +1,4 @@
-package com.samuel.pgdp.blatt11;
+package com.samuel.pgdp.blatt11.set;
 
 import org.junit.Assert;
 import org.junit.Before;

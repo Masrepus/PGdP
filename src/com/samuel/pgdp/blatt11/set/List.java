@@ -1,4 +1,4 @@
-package com.samuel.pgdp.blatt11;
+package com.samuel.pgdp.blatt11.set;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
