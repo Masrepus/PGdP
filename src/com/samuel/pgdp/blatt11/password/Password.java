@@ -28,6 +28,8 @@ public class Password {
 
     public void checkFormat(String pwd) throws IllegalCharExc, NotEnoughExc, NotLongEnoughExc {
 
+        if (pwd == null) throw new NullPointerException();
+
         int numbers = 0, lowercase = 0, uppercase = 0, special = 0;
 
         //test length
