@@ -18,6 +18,11 @@ public class Map {
     public static <T, R> void map(Fun<T, R> f, T[] a, R[] b, int n)
             throws InterruptedException {
 
+        //check params
+        if (a.length > b.length) throw new IllegalArgumentException("The length of R[] b must be greater than or equal to a.length");
+        if (n > a.length) throw new IllegalArgumentException("n must be <= a.length");
+        if (n <= 0) throw new IllegalArgumentException("n must be > 0");
+
         Worker[] workers = new Worker[n];
 
         //we have k%n areas of size k/n + 1 and the rest is of size k/n
