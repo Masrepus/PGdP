@@ -1,7 +1,5 @@
 package com.samuel.pgdp.blatt12;
 
-import java.util.Arrays;
-
 /**
  * Created by Samuel on 22.01.2017.
  */
