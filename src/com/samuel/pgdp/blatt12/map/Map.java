@@ -1,4 +1,4 @@
-package com.samuel.pgdp.blatt12;
+package com.samuel.pgdp.blatt12.map;
 
 /**
  * Created by Samuel on 22.01.2017.
@@ -17,8 +17,9 @@ public class Map {
             throws InterruptedException {
 
         //check params
+        if (f == null || a == null || b == null) throw new IllegalArgumentException("Parameters must not be null!");
+        if (a.length == 0 || b.length == 0) throw new IllegalArgumentException("a and b must not be of length 0");
         if (a.length > b.length) throw new IllegalArgumentException("The length of R[] b must be greater than or equal to a.length");
-        if (n > a.length) throw new IllegalArgumentException("n must be <= a.length");
         if (n <= 0) throw new IllegalArgumentException("n must be > 0");
 
         Worker[] workers = new Worker[n];

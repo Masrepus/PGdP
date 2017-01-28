@@ -1,4 +1,4 @@
-package com.samuel.pgdp.blatt12;
+package com.samuel.pgdp.blatt12.map;
 
 /**
  * Created by Samuel on 22.01.2017.
